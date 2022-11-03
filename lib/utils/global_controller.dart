@@ -1,7 +1,11 @@
 import 'dart:developer';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ozon/mqtt/mqttBrowserWrapper.dart';
+import 'package:ozon/mqtt/mqttClientWrapper.dart';
+
 import '../constant/theme.dart';
 
 final colors = <String, dynamic>{
@@ -11,6 +15,11 @@ final colors = <String, dynamic>{
 };
 
 class GlobalController extends GetxController {
+  late MQTTBrowserWrapper mqttBrowserWrapper;
+  late MQTTClientWrapper mqttClientWrapper;
+
+  RxString mqttMessage = RxString("");
+
   var userLogin = false.obs;
   var accessToken = "".obs;
   var textColors = [Colors.black, kPrimaryColor, Colors.white].obs;
@@ -21,7 +30,25 @@ class GlobalController extends GetxController {
 
   @override
   void onInit() async {
+    initMqtt();
     super.onInit();
+  }
+
+  Future initMqtt() async {
+    //check web or mobile
+    if (kIsWeb) {
+      mqttBrowserWrapper = MQTTBrowserWrapper(() {
+        print('Connect success!');
+      }, (message) {
+        mqttMessage.value = message;
+      });
+    } else {
+      mqttClientWrapper = MQTTClientWrapper(() {
+        print('Connect success!');
+      }, (message) {
+        mqttMessage.value = message;
+      });
+    }
   }
 
   setToken(String apiToken) {
@@ -33,8 +60,7 @@ class GlobalController extends GetxController {
     update();
   }
 
-  void refreshToken() async {
-  }
+  void refreshToken() async {}
 
   void getSetting() async {
     // await ApiDioController.getSetting().then((appSetting) {
