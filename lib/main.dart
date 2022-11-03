@@ -20,11 +20,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    if (kIsWeb) {
-      globalController.mqttBrowserWrapper.prepareMqttClient('topic');
-    } else {
-      globalController.mqttClientWrapper.prepareMqttClient('topic');
-    }
+    // if (kIsWeb) {
+    //   globalController.mqttBrowserWrapper.prepareMqttClient('topic');
+    // } else {
+    //   globalController.mqttClientWrapper.prepareMqttClient('topic');
+    // }
+
+    globalController.mqttClientWrapper.prepareMqttClient('topic');
 
     return GetMaterialApp(
       smartManagement: SmartManagement.onlyBuilder,

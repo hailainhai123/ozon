@@ -1,4 +1,7 @@
 import 'package:get/get.dart';
+import 'package:ozon/modules/department/department_controller.dart';
+import 'package:ozon/modules/department/department_page.dart';
+import 'package:ozon/modules/user/user_controller.dart';
 
 import '../modules/bottom_app_bar/navigation_controller.dart';
 import '../modules/home/home_controller.dart';
@@ -18,8 +21,8 @@ class HomeBinding implements Bindings {
   @override
   void dependencies() {
     Get.put(HomeController(), permanent: true);
-    Get.put(HomeController(), permanent: true);
-    Get.put(HomeController(), permanent: true);
+    Get.put(DepartmentController(), permanent: true);
+    Get.put(UserController(), permanent: true);
     Get.put(HomeController(), permanent: true);
     // Get.put(SearchController(), permanent: true);
     // Get.put(BookMarkController(), permanent: true);

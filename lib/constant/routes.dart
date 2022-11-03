@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:ozon/modules/department/department_page.dart';
+import 'package:ozon/modules/user/user_page.dart';
 
 import '../binding/app_binding.dart';
 import '../modules/bottom_app_bar/main_page.dart';
@@ -7,7 +9,8 @@ import '../modules/login/login_page.dart';
 
 const kRouteIndex = "/";
 const kHomePage = '/home';
-// const kSearchPage = '/search';
+const kDepartmentPage = '/department_page';
+const kUserPage = '/user_page';
 // const kBookDetails = '/book_details/:id';
 // const kReadingPage = '/reading/:id';
 // const kListChapPage = '/list_chap/:id';
@@ -24,6 +27,10 @@ final indexPage = GetPage(
     bindings: [GlobalBinding(), HomeBinding()]);
 
 final homePage = GetPage(name: kHomePage, page: () => const HomePage(), bindings: []);
+
+final departmentPage = GetPage(name: kDepartmentPage, page: () => DepartmentPage(), bindings: []);
+
+final userPage = GetPage(name: kUserPage, page: () => UserPage(), bindings: []);
 
 // //Book details
 // final detailsPage = GetPage(
@@ -77,11 +84,12 @@ final loginPage = GetPage(name: kLoginPage, page: () => const LoginPage());
 final List<GetPage> pages = [
   indexPage,
   homePage,
-  // searchPage,
+  departmentPage,
+  userPage,
   // listChapPage,
   // detailsPage,
   // readingPage,
-  // loginPage,
+  loginPage,
   // registerPage,
   // commentsPage,
   // notificationPage,

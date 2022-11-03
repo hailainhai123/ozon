@@ -15,7 +15,7 @@ class DepartmentPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Trang chủ'),
+        title: const Text('Danh sách trạm'),
         actions: [
           IconButton(
               icon: const Icon(Icons.logout),
@@ -38,14 +38,15 @@ class DepartmentPage extends StatelessWidget {
           //   ),
           // );
         },
-        child: const Icon(Icons.add),
         elevation: 2.0,
+        child: const Icon(Icons.add),
       ),
-      body: controller.isLoading.value
-          ? const Center(
-        child: CircularProgressIndicator(),
-      )
-          : buildBody(),
+      // body: controller.isLoading.value
+      //     ? const Center(
+      //   child: CircularProgressIndicator(),
+      // )
+      //     : buildBody(),
+      body: buildBody(),
     );
   }
 
