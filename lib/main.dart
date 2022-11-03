@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/smart_management.dart';
@@ -19,6 +20,12 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    if (kIsWeb) {
+      globalController.mqttBrowserWrapper.prepareMqttClient('topic');
+    } else {
+      globalController.mqttClientWrapper.prepareMqttClient('topic');
+    }
+
     return GetMaterialApp(
       smartManagement: SmartManagement.onlyBuilder,
       title: 'Ozon',
@@ -28,6 +35,7 @@ class MyApp extends StatelessWidget {
       getPages: pages,
       // builder: EasyLoading.init(),
       initialRoute: kRouteIndex,
-    );;
+    );
+    ;
   }
 }

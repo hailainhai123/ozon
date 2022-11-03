@@ -66,6 +66,8 @@ dependencies:
   flutter_facebook_auth: 5.0.0-dev.3
   cupertino_will_pop_scope: ^1.2.0
   liquid_progress_indicator:
+  mqtt_client: ^9.6.8
+  web_socket_channel: ^2.2.0
 
 dev_dependencies:
   flutter_test:
