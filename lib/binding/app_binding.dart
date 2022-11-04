@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:ozon/modules/device/device_controller.dart';
+import 'package:ozon/modules/device_detail/device_detail_controller.dart';
 import 'package:ozon/modules/user/user_controller.dart';
 
 import '../modules/bottom_app_bar/navigation_controller.dart';
@@ -26,6 +27,7 @@ class HomeBinding implements Bindings {
     Get.put(UserController(), permanent: true);
     Get.put(ContactController(), permanent: true);
     Get.put(DeviceController(), permanent: true);
+    Get.put(DeviceDetailController(), permanent: true);
     // Get.put(BookMarkController(), permanent: true);
     // Get.put(UserController(), permanent: true);
   }

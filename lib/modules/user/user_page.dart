@@ -16,7 +16,7 @@ class UserPage extends StatelessWidget {
       body:Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("images/cres_bg.jpg"),
+            image: AssetImage("assets/images/cres_bg.jpg"),
             fit: BoxFit.cover,
           ),
         ),
@@ -26,7 +26,7 @@ class UserPage extends StatelessWidget {
           child: Container(
             // decoration: BoxDecoration(
             //   image: DecorationImage(
-            //     image: AssetImage("images/cres_bg.jpg"),
+            //     image: AssetImage("assets/images/cres_bg.jpg"),
             //     fit: BoxFit.cover,
             //   ),
             // ),

@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:ozon/modules/device/device_page.dart';
+import 'package:ozon/modules/device_detail/device_detail_page.dart';
 import 'package:ozon/modules/user/user_page.dart';
 
 import '../binding/app_binding.dart';
@@ -15,7 +16,7 @@ const kDepartmentPage = '/department_page';
 const kUserPage = '/user_page';
 const kContactPage = '/contact_page';
 const kDevicePage = '/device_page';
-// const kListChapPage = '/list_chap/:id';
+const kDeviceDetailPage = '/device_detail_page';
 const kLoginPage = '/login';
 // const kRegisterPage = '/register';
 // const kCommentsPage = '/comments/:id';
@@ -37,6 +38,8 @@ final userPage = GetPage(name: kUserPage, page: () => UserPage(), bindings: []);
 final contactPage = GetPage(name: kContactPage, page: () => ContactPage(), bindings: []);
 
 final devicePage = GetPage(name: kDevicePage, page: () => DevicePage(), bindings: []);
+
+final deviceDetailPage = GetPage(name: kDeviceDetailPage, page: () => DeviceDetailPage(), bindings: []);
 
 // //Book details
 // final detailsPage = GetPage(
@@ -94,7 +97,7 @@ final List<GetPage> pages = [
   userPage,
   contactPage,
   devicePage,
-  // readingPage,
+  deviceDetailPage,
   loginPage,
   // registerPage,
   // commentsPage,

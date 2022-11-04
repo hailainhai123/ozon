@@ -55,7 +55,7 @@ class DevicePage extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage("images/cres_bg.jpg"),
+          image: AssetImage("assets/images/cres_bg.jpg"),
           fit: BoxFit.cover,
         ),
       ),
@@ -88,15 +88,7 @@ class DevicePage extends StatelessWidget {
   Widget buildItem(DeviceModel deviceModel) {
     return GestureDetector(
       onTap: () {
-        // _selectedDevice = tb.mathietbi;
-        // navigatorPush(
-        //     context,
-        //     DeviceDetailScreen(
-        //       thietBi: tb,
-        //       updateCallback: (device) {
-        //         getDevices();
-        //       },
-        //     ));
+        Get.toNamed(kDeviceDetailPage);
       },
       onLongPress: () {
         // showDialog(
@@ -205,7 +197,7 @@ class DevicePage extends StatelessWidget {
       children: const [
         ImageIcon(
           AssetImage(
-            'images/water_drop.png',
+            'assets/images/water_drop.png',
           ),
           size: 30,
           color: Colors.blue,
