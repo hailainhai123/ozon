@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
-import 'package:ozon/constant/routes.dart';
-import 'package:ozon/model/device_model.dart';
-import 'package:ozon/modules/department/department_controller.dart';
+import 'package:ozon/modules/device/device_controller.dart';
 
-class DepartmentPage extends StatelessWidget {
-  DepartmentPage({Key? key}) : super(key: key);
+import '../../constant/routes.dart';
+import '../../model/device_model.dart';
 
-  final DepartmentController controller = Get.find();
+class DevicePage extends StatelessWidget {
+  DevicePage({Key? key}) : super(key: key);
+
+  final DeviceController controller = Get.find();
+
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +51,6 @@ class DepartmentPage extends StatelessWidget {
       body: buildBody(),
     );
   }
-
   Widget buildBody() {
     return Container(
       decoration: const BoxDecoration(
@@ -197,6 +198,7 @@ class DepartmentPage extends StatelessWidget {
       ),
     );
   }
+
   Widget centerProgress() {
     return Stack(
       alignment: Alignment.center,
@@ -212,5 +214,4 @@ class DepartmentPage extends StatelessWidget {
       ],
     );
   }
-
 }

@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:ozon/mqtt/mqttBrowserWrapper.dart';
 import 'package:ozon/mqtt/mqttClientWrapper.dart';
 
+import '../../model/device_model.dart';
 import '../bottom_app_bar/navigation_controller.dart';
 
 class HomeController extends GetxController with GetTickerProviderStateMixin {

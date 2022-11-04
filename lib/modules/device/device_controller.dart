@@ -1,7 +1,8 @@
 import 'package:get/get.dart';
-import 'package:ozon/model/device_model.dart';
 
-class DepartmentController extends GetxController {
+import '../../model/device_model.dart';
+
+class DeviceController extends GetxController {
   RxBool isLoading = true.obs;
   var listDevice = <DeviceModel>[].obs;
 
@@ -11,7 +12,6 @@ class DepartmentController extends GetxController {
     fakeDateDepartment();
     super.onInit();
   }
-
   void fakeDateDepartment() {
     listDevice.add(DeviceModel(
       'userid',

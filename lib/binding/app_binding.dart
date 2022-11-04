@@ -1,10 +1,11 @@
 import 'package:get/get.dart';
-import 'package:ozon/modules/department/department_controller.dart';
-import 'package:ozon/modules/department/department_page.dart';
+import 'package:ozon/modules/device/device_controller.dart';
 import 'package:ozon/modules/user/user_controller.dart';
 
 import '../modules/bottom_app_bar/navigation_controller.dart';
+import '../modules/contact/contact_controller.dart';
 import '../modules/home/home_controller.dart';
+import '../modules/insurance/insurance_controller.dart';
 import '../modules/login/login_controller.dart';
 
 class GlobalBinding implements Bindings {
@@ -21,10 +22,10 @@ class HomeBinding implements Bindings {
   @override
   void dependencies() {
     Get.put(HomeController(), permanent: true);
-    Get.put(DepartmentController(), permanent: true);
+    Get.put(InsuranceController(), permanent: true);
     Get.put(UserController(), permanent: true);
-    Get.put(HomeController(), permanent: true);
-    // Get.put(SearchController(), permanent: true);
+    Get.put(ContactController(), permanent: true);
+    Get.put(DeviceController(), permanent: true);
     // Get.put(BookMarkController(), permanent: true);
     // Get.put(UserController(), permanent: true);
   }

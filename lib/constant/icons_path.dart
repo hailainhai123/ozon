@@ -11,8 +11,8 @@ class IconsPath {
 
   //home svg icons
   static String navHomeIcon = "${svgPath}home-2.svg";
-  static String navSearchIcon = "${svgPath}search.svg";
-  static String navBookmarkIcon = "${svgPath}bookmark_outlined.svg";
+  static String navInsuranceIcon = "${svgPath}bookmark_outlined.svg";
+  static String navContactIcon = "${svgPath}icon_call.svg";
   static String navUserIcon = "${svgPath}user.svg";
   static String imageBackground = "${imagesPath}cres_bg.jpg";
 

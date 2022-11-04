@@ -18,10 +18,10 @@ class NavigationBottomBar extends GetView<NavController> {
   NavigationBottomBar({Key? key}) : super(key: key);
 
   final icons = <BottomNav>[
-    BottomNav(icon: IconsPath.navHomeIcon, title: "Trang chủ"),
-    BottomNav(icon: IconsPath.navSearchIcon, title: "Trạm"),
-    BottomNav(icon: IconsPath.navBookmarkIcon, title: "Thiết bị"),
-    BottomNav(icon: IconsPath.navUserIcon, title: "Tài khoản"),
+    BottomNav(icon: IconsPath.navHomeIcon, title: "Trang Chủ"),
+    BottomNav(icon: IconsPath.navInsuranceIcon, title: "Bảo Hành"),
+    BottomNav(icon: IconsPath.navContactIcon, title: "Liên Hệ"),
+    BottomNav(icon: IconsPath.navUserIcon, title: "Tài Khoản"),
   ];
 
   @override

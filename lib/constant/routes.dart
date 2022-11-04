@@ -1,18 +1,20 @@
 import 'package:get/get.dart';
-import 'package:ozon/modules/department/department_page.dart';
+import 'package:ozon/modules/device/device_page.dart';
 import 'package:ozon/modules/user/user_page.dart';
 
 import '../binding/app_binding.dart';
 import '../modules/bottom_app_bar/main_page.dart';
+import '../modules/contact/contact_page.dart';
 import '../modules/home/home_page.dart';
+import '../modules/insurance/insurance_page.dart';
 import '../modules/login/login_page.dart';
 
 const kRouteIndex = "/";
 const kHomePage = '/home';
 const kDepartmentPage = '/department_page';
 const kUserPage = '/user_page';
-// const kBookDetails = '/book_details/:id';
-// const kReadingPage = '/reading/:id';
+const kContactPage = '/contact_page';
+const kDevicePage = '/device_page';
 // const kListChapPage = '/list_chap/:id';
 const kLoginPage = '/login';
 // const kRegisterPage = '/register';
@@ -26,11 +28,15 @@ final indexPage = GetPage(
     page: () => MainPage(),
     bindings: [GlobalBinding(), HomeBinding()]);
 
-final homePage = GetPage(name: kHomePage, page: () => const HomePage(), bindings: []);
+final homePage = GetPage(name: kHomePage, page: () => HomePage(), bindings: []);
 
-final departmentPage = GetPage(name: kDepartmentPage, page: () => DepartmentPage(), bindings: []);
+final departmentPage = GetPage(name: kDepartmentPage, page: () => InsurancePage(), bindings: []);
 
 final userPage = GetPage(name: kUserPage, page: () => UserPage(), bindings: []);
+
+final contactPage = GetPage(name: kContactPage, page: () => ContactPage(), bindings: []);
+
+final devicePage = GetPage(name: kDevicePage, page: () => DevicePage(), bindings: []);
 
 // //Book details
 // final detailsPage = GetPage(
@@ -86,8 +92,8 @@ final List<GetPage> pages = [
   homePage,
   departmentPage,
   userPage,
-  // listChapPage,
-  // detailsPage,
+  contactPage,
+  devicePage,
   // readingPage,
   loginPage,
   // registerPage,
