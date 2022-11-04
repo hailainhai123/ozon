@@ -18,27 +18,9 @@ class DevicePage extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Danh sách trạm'),
-        actions: [
-          IconButton(
-              icon: const Icon(Icons.logout),
-              onPressed: () {
-                Get.toNamed(kLoginPage);
-              }),
-        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(
-          //     builder: (context) =>
-          //         AddDeviceScreen(
-          //           updateCallback: (device) {
-          //             getDevices();
-          //           },
-          //         ),
-          //   ),
-          // );
         },
         elevation: 2.0,
         child: const Icon(Icons.add),

@@ -22,13 +22,12 @@ class DeviceDetailPage extends StatelessWidget {
     return Container(
       height: double.infinity,
       decoration: const BoxDecoration(
-        color: Colors.yellow,
         image: DecorationImage(
           image: AssetImage("assets/images/cres_bg.jpg"),
           fit: BoxFit.cover,
         ),
       ),
-      width: double.infinity,
+      // width: double.infinity,
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -46,9 +45,9 @@ class DeviceDetailPage extends StatelessWidget {
     );
   }
   Widget liquidProgress() {
-    return Container(
-      width: Get.width * 0.7,
-      height: Get.height * 0.7,
+    return SizedBox(
+      width: Get.width * 0.6,
+      height: Get.height * 0.3,
       child: LiquidCircularProgressIndicator(
         value: 50,
         // Defaults to 0.5.
@@ -166,16 +165,16 @@ class DeviceDetailPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(label, textAlign: TextAlign.left),
-          FittedBox(
-            fit: BoxFit.contain,
-            child: Text(content,
-                textAlign: TextAlign.right,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: color,
-                  fontWeight: FontWeight.bold,
-                )),
-          )
+          // FittedBox(
+          //   fit: BoxFit.contain,
+          //   child: Text(content,
+          //       textAlign: TextAlign.right,
+          //       style: TextStyle(
+          //         fontSize: 16,
+          //         color: color,
+          //         fontWeight: FontWeight.bold,
+          //       )),
+          // )
         ],
       ),
     );
