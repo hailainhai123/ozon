@@ -17,7 +17,7 @@ class DevicePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Danh sách trạm'),
+        title: const Text('Danh sách thiết bị'),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

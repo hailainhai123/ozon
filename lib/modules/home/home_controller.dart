@@ -79,57 +79,34 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
 
   var FOOD_DATA = [
     {
-      "name":"Burger",
-      "brand":"Hawkers",
-      "price":2.99,
-      "image":"burger.png"
-    },{
-      "name":"Cheese Dip",
-      "brand":"Hawkers",
-      "price":4.99,
-      "image":"cheese_dip.png"
+      "name":"Trạm 1",
+      "brand":"Hà nội",
+      "price": 3,
+      "image":"water_drop.png"
     },
     {
-      "name":"Cola",
-      "brand":"Mcdonald",
-      "price":1.49,
-      "image":"cola.png"
+      "name":"Trạm 2",
+      "brand":"Hà nội",
+      "price": 3,
+      "image":"water_drop.png"
     },
     {
-      "name":"Fries",
-      "brand":"Mcdonald",
-      "price":2.99,
-      "image":"fries.png"
+      "name":"Trạm 3",
+      "brand":"Hà nội",
+      "price": 3,
+      "image":"water_drop.png"
     },
     {
-      "name":"Ice Cream",
-      "brand":"Ben & Jerry's",
-      "price":9.49,
-      "image":"ice_cream.png"
+      "name":"Trạm 4",
+      "brand":"Hà nội",
+      "price": 3,
+      "image":"water_drop.png"
     },
     {
-      "name":"Noodles",
-      "brand":"Hawkers",
-      "price":4.49,
-      "image":"noodles.png"
+      "name":"Trạm 5",
+      "brand":"Hà nội",
+      "price": 3,
+      "image":"water_drop.png"
     },
-    {
-      "name":"Pizza",
-      "brand":"Dominos",
-      "price":17.99,
-      "image":"pizza.png"
-    },
-    {
-      "name":"Sandwich",
-      "brand":"Hawkers",
-      "price":2.99,
-      "image":"sandwich.png"
-    },
-    {
-      "name":"Wrap",
-      "brand":"Subway",
-      "price":6.99,
-      "image":"wrap.png"
-    }
   ];
 }
