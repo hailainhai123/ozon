@@ -157,17 +157,10 @@ class _HomePageState extends State<HomePage> {
                           onTap: (){
                             Get.toNamed(kDevicePage);
                           },
-                          child: Opacity(
-                            opacity: scale,
-                            child: Transform(
-                              transform:  Matrix4.identity()..scale(scale,scale),
-                              alignment: Alignment.bottomCenter,
-                              child: Align(
-                                  heightFactor: 0.7,
-                                  alignment: Alignment.topCenter,
-                                  child: itemsData[index]),
-                            ),
-                          ),
+                          child: Align(
+                              // heightFactor: 0.7,
+                              alignment: Alignment.topCenter,
+                              child: itemsData[index]),
                         );
                       })),
             ],
