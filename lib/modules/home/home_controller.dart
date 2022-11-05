@@ -1,12 +1,8 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ozon/mqtt/mqttBrowserWrapper.dart';
-import 'package:ozon/mqtt/mqttClientWrapper.dart';
 
-import '../../model/device_model.dart';
 import '../bottom_app_bar/navigation_controller.dart';
 
 class HomeController extends GetxController with GetTickerProviderStateMixin {
@@ -79,34 +75,44 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
 
   var FOOD_DATA = [
     {
-      "name":"Trạm 1",
-      "brand":"Hà nội",
+      "name": "Trạm Hà Đông",
+      "brand": "Hà nội",
       "price": 3,
-      "image":"water_drop.png"
+      "active": "2",
+      "stop": "1",
+      "image": "charging-station.png"
     },
     {
-      "name":"Trạm 2",
-      "brand":"Hà nội",
+      "name": "Trạm Mỹ Đình",
+      "brand": "Hà nội",
       "price": 3,
-      "image":"water_drop.png"
+      "active": "2",
+      "stop": "1",
+      "image": "charging-station.png"
     },
     {
-      "name":"Trạm 3",
-      "brand":"Hà nội",
+      "name": "Trạm Thanh Xuân",
+      "brand": "Hà nội",
       "price": 3,
-      "image":"water_drop.png"
+      "active": "2",
+      "stop": "1",
+      "image": "charging-station.png"
     },
     {
-      "name":"Trạm 4",
-      "brand":"Hà nội",
+      "name": "Trạm Long Biên",
+      "brand": "Hà nội",
       "price": 3,
-      "image":"water_drop.png"
+      "active": "2",
+      "stop": "1",
+      "image": "charging-station.png"
     },
     {
-      "name":"Trạm 5",
-      "brand":"Hà nội",
+      "name": "Trạm Gia Lâm",
+      "brand": "Hà nội",
       "price": 3,
-      "image":"water_drop.png"
+      "active": "2",
+      "stop": "1",
+      "image": "charging-station.png"
     },
   ];
 }

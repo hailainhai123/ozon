@@ -1,7 +1,9 @@
 import 'dart:developer';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ozon/mqtt/mqttBrowserWrapper.dart';
 import 'package:ozon/mqtt/mqttClientWrapper.dart';
 
 import '../constant/theme.dart';
@@ -15,6 +17,7 @@ final colors = <String, dynamic>{
 class GlobalController extends GetxController {
   // late MQTTBrowserWrapper mqttBrowserWrapper;
   late MQTTClientWrapper mqttClientWrapper;
+  // late MQTTBrowserWrapper mqttBrowserWrapper;
 
   RxString mqttMessage = RxString("");
 
@@ -38,7 +41,7 @@ class GlobalController extends GetxController {
     }, (message) {
       mqttMessage.value = message;
     });
-    //check web or mobile
+    // check web or mobile
     // if (kIsWeb) {
     //   mqttBrowserWrapper = MQTTBrowserWrapper(() {
     //     print('Connect success!');

@@ -144,9 +144,6 @@ class DeviceDetailPage extends StatelessWidget {
                    '', Colors.black),
                 deviceInfoItem(
                     'Điện áp: ', '', Colors.black),
-                deviceInfoItem('TDS: ', '', Colors.black),
-                deviceInfoItem(
-                    'Số lõi: ', '', Colors.black),
                 deviceInfoItem('Ngày kích hoạt ',
                     '', Colors.red),
                 deviceInfoItem('Thời gian bảo hành ', '3 năm', Colors.red),
@@ -186,14 +183,14 @@ class DeviceDetailPage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: const [
-          Text('Chỉ số tinh khiết',
+          Text('Nồng độ ozone',
               style: TextStyle(fontSize: 16)),
           Text( '20',
               style: TextStyle(
                   fontSize: 45,
                   color: Colors.blue,
                   fontWeight: FontWeight.bold)),
-          Text('Tốt cho sức khỏe',
+          Text('ppm',
               style: TextStyle(fontSize: 16)),
         ],
       ),
