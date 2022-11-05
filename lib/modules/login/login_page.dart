@@ -75,6 +75,8 @@ class _LoginPageState extends State<LoginPage> {
   Widget _submitButton() {
     return InkWell(
       onTap: () async {
+        print('1');
+        Get.toNamed(kRouteIndex);
       },
       child: Container(
         width: MediaQuery.of(context).size.width,

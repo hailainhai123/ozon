@@ -5,6 +5,8 @@ import 'package:ozon/modules/device/device_controller.dart';
 
 import '../../constant/routes.dart';
 import '../../model/device_model.dart';
+import '../../utils/colors.dart';
+import '../../widget_custom/touchable_opacity.dart';
 
 class DevicePage extends StatelessWidget {
   DevicePage({Key? key}) : super(key: key);
@@ -18,6 +20,16 @@ class DevicePage extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Danh sách thiết bị'),
+        leading: TouchableOpacity(
+          onTap: () {
+            Get.back();
+          },
+          child: const Icon(
+            Icons.chevron_left,
+            size: 36,
+            color: AppColors.black,
+          ),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

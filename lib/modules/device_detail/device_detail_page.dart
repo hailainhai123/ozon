@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 
+import '../../utils/colors.dart';
+import '../../widget_custom/touchable_opacity.dart';
+
 class DeviceDetailPage extends StatelessWidget {
   const DeviceDetailPage({Key? key}) : super(key: key);
 
@@ -14,6 +17,16 @@ class DeviceDetailPage extends StatelessWidget {
           'Chi tiết thiết bị',
         ),
         centerTitle: true,
+        leading: TouchableOpacity(
+          onTap: () {
+            Get.back();
+          },
+          child: const Icon(
+            Icons.chevron_left,
+            size: 36,
+            color: AppColors.black,
+          ),
+        ),
       ),
       body: buildBody(),
     );

@@ -41,6 +41,8 @@ final devicePage = GetPage(name: kDevicePage, page: () => DevicePage(), bindings
 
 final deviceDetailPage = GetPage(name: kDeviceDetailPage, page: () => DeviceDetailPage(), bindings: []);
 
+final loginPage = GetPage(name: kLoginPage, page: () => const LoginPage());
+
 // //Book details
 // final detailsPage = GetPage(
 //     name: kBookDetails,
@@ -67,7 +69,6 @@ final deviceDetailPage = GetPage(name: kDeviceDetailPage, page: () => DeviceDeta
 // final listChapPage = GetPage(name: kListChapPage, page: () => ListChapPage());
 //
 //Login, register
-final loginPage = GetPage(name: kLoginPage, page: () => const LoginPage());
 
 // final registerPage = GetPage(name: kRegisterPage, page: () => RegisterPage());
 //

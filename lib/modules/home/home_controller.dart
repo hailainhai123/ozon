@@ -82,31 +82,31 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
       "name":"Trạm 1",
       "brand":"Hà nội",
       "price": 3,
-      "image":"water_drop.png"
+      "image":"item_ozon_transparent.png"
     },
     {
       "name":"Trạm 2",
       "brand":"Hà nội",
       "price": 3,
-      "image":"water_drop.png"
+      "image":"item_ozon_transparent.png"
     },
     {
       "name":"Trạm 3",
       "brand":"Hà nội",
       "price": 3,
-      "image":"water_drop.png"
+      "image":"item_ozon_transparent.png"
     },
     {
       "name":"Trạm 4",
       "brand":"Hà nội",
       "price": 3,
-      "image":"water_drop.png"
+      "image":"item_ozon_transparent.png"
     },
     {
       "name":"Trạm 5",
       "brand":"Hà nội",
       "price": 3,
-      "image":"water_drop.png"
+      "image":"item_ozon_transparent.png"
     },
   ];
 }
