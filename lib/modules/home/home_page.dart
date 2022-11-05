@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ozon/constant/routes.dart';
+
 import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
@@ -23,13 +25,16 @@ class _HomePageState extends State<HomePage> {
     List<Widget> listItems = [];
     responseList.forEach((post) {
       listItems.add(Container(
-          height: 120,
-          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          decoration: BoxDecoration(borderRadius: const BorderRadius.all(Radius.circular(20.0)), color: Colors.white, boxShadow: [
-            BoxShadow(color: Colors.black.withAlpha(100), blurRadius: 10.0),
-          ]),
+          height: 100,
+          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(Radius.circular(20.0)),
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(color: Colors.black.withAlpha(100), blurRadius: 10.0),
+              ]),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -38,8 +43,9 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      'Tên trạm: ${post["name"]}',
-                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      '${post["name"]}',
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                     Text(
                       'Địa điểm: ${post["brand"]}',
@@ -48,9 +54,44 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(
                       height: 10,
                     ),
-                    Text(
-                      "Số thiết bị: ${post["price"]}",
-                      style: const TextStyle(fontSize: 12, color: Colors.black, fontWeight: FontWeight.bold),
+                    Row(
+                      children: [
+                        Text(
+                          "Thiết bị: ${post["price"]}   ",
+                          style: const TextStyle(
+                              fontSize: 12,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Image.asset(
+                          "assets/images/green_dot.png",
+                          height: 20,
+                        ),
+                        Text(
+                          "${post["active"]}   ",
+                          style: const TextStyle(
+                              fontSize: 12,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Image.asset(
+                          "assets/images/red_dot.png",
+                          height: 20,
+                        ),
+                        Text(
+                          "${post["stop"]}",
+                          style: const TextStyle(
+                              fontSize: 12,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold),
+                        )
+                      ],
                     )
                   ],
                 ),
@@ -72,8 +113,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     getPostsData();
     scrollController.addListener(() {
-
-      double value = scrollController.offset/119;
+      double value = scrollController.offset / 119;
 
       setState(() {
         topContainer = value;
@@ -120,7 +160,7 @@ class _HomePageState extends State<HomePage> {
                           }
                         }
                         return GestureDetector(
-                          onTap: (){
+                          onTap: () {
                             Get.toNamed(kDevicePage);
                           },
                           child: Align(
@@ -136,4 +176,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
