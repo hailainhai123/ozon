@@ -40,6 +40,13 @@ class SearchBinding implements Bindings {
   }
 }
 
+class DeviceBinding implements Bindings {
+  @override
+  void dependencies() {
+    Get.put(() => DeviceController(), permanent: true);
+  }
+}
+
 class BookDetailsBinding implements Bindings {
   @override
   void dependencies() {

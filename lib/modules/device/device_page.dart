@@ -49,7 +49,7 @@ class DevicePage extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage("assets/images/cres_bg.jpg"),
+          image: AssetImage("assets/images/bg_evn.jpeg"),
           fit: BoxFit.cover,
         ),
       ),
@@ -84,62 +84,6 @@ class DevicePage extends StatelessWidget {
       onTap: () {
         Get.toNamed(kDeviceDetailPage);
       },
-      onLongPress: () {
-        // showDialog(
-        //   context: context,
-        //   builder: (context)
-        //   =>
-        //       AlertDialog(
-        //         title: new Text(
-        //           'Xóa thiết bị ?',
-        //         ),
-        //         actions: <Widget>[
-        //           new FlatButton(
-        //             onPressed: () =>
-        //             {
-        //               Navigator.of(context).pop(),
-        //             },
-        //             child: new Text(
-        //               'Hủy',
-        //             ),
-        //           ),
-        //           new FlatButton(
-        //             onPressed: () {
-        //               pubTopic = 'deletetb';
-        //               ThietBi t = ThietBi(
-        //                 iduser,
-        //                 tb.mathietbi,
-        //                 '',
-        //                 '',
-        //                 '',
-        //                 '',
-        //                 '',
-        //                 '',
-        //                 '',
-        //                 '',
-        //                 '',
-        //                 '',
-        //                 '',
-        //                 '',
-        //                 '',
-        //                 '',
-        //                 '',
-        //                 '',
-        //                 '',
-        //                 '',
-        //                 '',
-        //                 Constants.mac,
-        //               );
-        //               publishMessage(pubTopic, jsonEncode(t));
-        //             },
-        //             child: new Text(
-        //               'Đồng ý',
-        //             ),
-        //           ),
-        //         ],
-        //       ),
-        // );
-      },
       behavior: HitTestBehavior.translucent,
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 2),
@@ -155,29 +99,13 @@ class DevicePage extends StatelessWidget {
               Text(
                 deviceModel.mathietbi ?? "",
               ),
-              Container(
-                width: 100,
-                height: 100,
-                child: LiquidCircularProgressIndicator(
-                  value: 0.5,
-                  // Defaults to 0.5.
-                  valueColor: const AlwaysStoppedAnimation(Colors.lightBlue),
-                  // Defaults to the current Theme's accentColor.
-                  backgroundColor: Colors.white,
-                  // Defaults to the current Theme's backgroundColor.
-                  borderColor: Colors.blue,
-                  borderWidth: 1.0,
-                  direction: Axis.vertical,
-                  // The direction the liquid moves (Axis.vertical = bottom to top, Axis.horizontal = left to right). Defaults to Axis.vertical.
-                  center: centerProgress(),
-                ),
-              ),
-              // Image.asset(
-              //   'images/water_filter.png',
-              //   width: 60,
-              //   height: 60,
-              //   fit: BoxFit.cover,
-              // ),
+              Text( '20',
+                  style: TextStyle(
+                      fontSize: 45,
+                      color: Colors.blue,
+                      fontWeight: FontWeight.bold)),
+              Text('ppm',
+                  style: TextStyle(fontSize: 16)),
             ],
           ),
         ),

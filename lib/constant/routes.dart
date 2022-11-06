@@ -37,7 +37,7 @@ final userPage = GetPage(name: kUserPage, page: () => UserPage(), bindings: []);
 
 final contactPage = GetPage(name: kContactPage, page: () => ContactPage(), bindings: []);
 
-final devicePage = GetPage(name: kDevicePage, page: () => DevicePage(), bindings: []);
+final devicePage = GetPage(name: kDevicePage, page: () => DevicePage(), bindings: [DeviceBinding()]);
 
 final deviceDetailPage = GetPage(name: kDeviceDetailPage, page: () => DeviceDetailPage(), bindings: []);
 

@@ -152,8 +152,8 @@ class DeviceDetailPage extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             child: Column(
               children: [
-                deviceInfoItem('Tình trạng máy: ', trangthai, Colors.green),
-                deviceInfoItem('Tên máy: ',
+                deviceInfoItem('Tình trạng cảm biến: ', trangthai, Colors.green),
+                deviceInfoItem('Tên cảm biến: ',
                    '', Colors.black),
                 deviceInfoItem(
                     'Điện áp: ', '', Colors.black),

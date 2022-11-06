@@ -110,7 +110,7 @@ class _LoginPageState extends State<LoginPage> {
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               SizedBox(
                   width: Get.width,
@@ -138,6 +138,7 @@ class _LoginPageState extends State<LoginPage> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                            Image.asset("assets/images/ic_evn.png"),
                             Padding(
                                 padding: const EdgeInsets.all(24.0),
                                 child: SizedBox(
