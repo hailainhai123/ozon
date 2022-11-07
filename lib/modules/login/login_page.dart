@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:ozon/utils/colors.dart';
 import 'package:sign_in_button/sign_in_button.dart';
 
 import '../../constant/icons_path.dart';
 import '../../constant/routes.dart';
 import '../../constant/theme.dart';
+import '../../utils/icons.dart';
+import '../../widget_custom/app_input.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -15,7 +18,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -32,42 +34,43 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
-  Widget _entryField(String title, TextEditingController _controller,
-      {bool isPassword = false}) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            title,
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          TextFormField(
-              controller: _controller,
-              obscureText: isPassword,
-              decoration: const InputDecoration(
-                  border: InputBorder.none,
-                  fillColor: Colors.grey,
-                  filled: true))
-        ],
-      ),
-    );
-  }
-
   Widget _emailPasswordWidget() {
     return Column(
       children: <Widget>[
-        Container(
-          // decoration: BoxDecoration(
-          //   color: Colors.white.withOpacity(0.7)
-          // ),
-          child: _entryField("Tên đăng nhập", _emailController),
+        AppInput(
+          controller: _emailController,
+          validator: (phoneNumber) {
+            if (phoneNumber == null ||
+                phoneNumber.trim().isEmpty) {
+              return '';
+            }
+            return null;
+          },
+          enabled: true,
+          hintText: 'Tên đăng nhập',
+          iconLeft: IconEnums.mail,
+          onTapIconRight: () async {
+            _emailController.clear();
+          },
+          enableInteractiveSelection: false,
+          iconRight: IconEnums.close,
+          // onChangeValue: _loginStore.onChangePhoneNumber,
+          // keyboardType: TextInputType.phone,
         ),
-        _entryField("Mật khẩu", _passwordController, isPassword: true),
+        AppInput(
+          controller: _passwordController,
+          maxLine: 1,
+          validator: (password) {
+            if (password == null || password.isEmpty) {
+              return '';
+            }
+            return null;
+          },
+          hintText: 'Mật khẩu',
+          iconLeft: IconEnums.lock,
+          obscureText: true,
+          // onChangeValue: _loginStore.onChangePassword,
+        ),
       ],
     );
   }
@@ -75,7 +78,6 @@ class _LoginPageState extends State<LoginPage> {
   Widget _submitButton() {
     return InkWell(
       onTap: () async {
-        print('1');
         Get.toNamed(kRouteIndex);
       },
       child: Container(
@@ -83,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
         padding: const EdgeInsets.symmetric(vertical: 15),
         alignment: Alignment.center,
         decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(Radius.circular(5)),
+            borderRadius: const BorderRadius.all(Radius.circular(8)),
             boxShadow: <BoxShadow>[
               BoxShadow(
                   color: Colors.grey.shade200,
@@ -106,110 +108,57 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              SizedBox(
-                  width: Get.width,
-                  child: AspectRatio(
-                      aspectRatio: 359 / 286,
-                      child: SvgPicture.asset(
-                        IconsPath.imageBackground,
-                        color: kPrimaryColor,
-                      ))),
-              const SizedBox(height: 300)
-            ],
-          ),
-          SizedBox(
-            width: Get.width,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const SizedBox(),
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset("assets/images/ic_evn.png"),
-                            Padding(
-                                padding: const EdgeInsets.all(24.0),
-                                child: SizedBox(
-                                  width: Get.width / 2,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    child: Image.asset(
-                                        'assets/images/bg_image_2.jpg'),
-                                  ),
-                                )),
-                            const SizedBox(
-                              height: 8.0,
-                            ),
-                            _emailPasswordWidget(),
-                            const SizedBox(
-                              height: 16.0,
-                            ),
-                            _submitButton(),
-
-                            // TODO đăng nhập vs fb, gg, apple
-                            // SizedBox(
-                            //   width: 250,
-                            //   height: 50,
-                            //   child: SignInButton(
-                            //     Buttons.googleDark,
-                            //     text: "Đăng nhập với Google",
-                            //     padding: const EdgeInsets.all(15),
-                            //     onPressed: () async {
-                            //     },
-                            //   ),
-                            // ),
-                            // const SizedBox(
-                            //   height: 8,
-                            // ),
-                            // SizedBox(
-                            //   width: 250,
-                            //   height: 50,
-                            //   child: SignInButton(
-                            //     Buttons.facebookNew,
-                            //     text: "Đăng nhập với Facebook",
-                            //     padding: const EdgeInsets.all(15),
-                            //     onPressed: () {
-                            //     },
-                            //   ),
-                            // ),
-                            // const SizedBox(
-                            //   height: 8,
-                            // ),
-                            // GetPlatform.isIOS
-                            //     ? SizedBox(
-                            //   width: 250,
-                            //   height: 50,
-                            //   child: SignInButton(
-                            //     Buttons.apple,
-                            //     text: "Đăng nhập với Apple",
-                            //     padding: const EdgeInsets.all(15),
-                            //     onPressed: () {
-                            //     },
-                            //   ),
-                            // )
-                            //     : const SizedBox()
-                          ],
-                        ),
+                Image.asset("assets/images/ic_evn.png"),
+                Padding(
+                    padding: const EdgeInsets.all(24.0),
+                    child: SizedBox(
+                      width: Get.width / 2,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8.0),
+                        child: Image.asset(
+                            'assets/images/bg_image_2.jpg'),
                       ),
-                    ]),
+                    )),
+                const SizedBox(
+                  height: 16.0,
+                ),
+                _emailPasswordWidget(),
+                const SizedBox(
+                  height: 24.0,
+                ),
+                _submitButton(),
+                const SizedBox(
+                  height: 24.0,
+                ),
+                SignInButton(
+                  Buttons.facebook,
+                  onPressed: () {},
+                ),
+                const SizedBox(
+                  height: 16.0,
+                ),
+                SignInButton(
+                  Buttons.google,
+                  onPressed: () {},
+                ),
+                GetPlatform.isIOS ?
+                SignInButton(
+                  Buttons.apple,
+                  onPressed: () {},
+                ) : const SizedBox(),
               ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }
 }
-

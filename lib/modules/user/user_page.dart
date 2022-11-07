@@ -16,7 +16,7 @@ class UserPage extends StatelessWidget {
       body:Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/cres_bg.jpg"),
+            image: AssetImage("assets/images/bg_evn.jpeg"),
             fit: BoxFit.cover,
           ),
         ),

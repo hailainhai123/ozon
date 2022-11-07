@@ -49,3 +49,9 @@ const GET_INFO_USER = 'getinfouser';
 const GET_INFO_PARENT = 'getinfoph';
 const kPrimaryColor = Color(0xFF6F35A5);
 const kPrimaryLightColor = Color(0xFFF1E6FF);
+
+class ViewConstants {
+  static const double defaultBorderRadiusBtn = 8;
+  static const double defaultBorderRadiusTextInput = 8;
+  static const double defaultBorderRadiusHeader = 0;
+}

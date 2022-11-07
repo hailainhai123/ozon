@@ -16,7 +16,7 @@ class ContactPage extends StatelessWidget {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/cres_bg.jpg"),
+            image: AssetImage("assets/images/bg_evn.jpeg"),
             fit: BoxFit.cover,
           ),
         ),
@@ -37,7 +37,7 @@ class ContactPage extends StatelessWidget {
                       child: Column(
                         children: [
                           deviceInfoItem(
-                              'Công ty: ', 'Techno Corp', Colors.green),
+                              'Công ty: ', 'EVN HANOI', Colors.green),
                           deviceInfoItem('Email: ', 'Email', Colors.green),
                           deviceInfoItem(
                               'Số điện thoại: ', '0912345678', Colors.green),
