@@ -97,14 +97,14 @@ class DevicePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
-                deviceModel.mathietbi ?? "",
+                deviceModel.deviceId ?? "",
               ),
-              Text( '20',
+              const Text( '20',
                   style: TextStyle(
                       fontSize: 45,
                       color: Colors.blue,
                       fontWeight: FontWeight.bold)),
-              Text('ppm',
+              const Text('ppm',
                   style: TextStyle(fontSize: 16)),
             ],
           ),
