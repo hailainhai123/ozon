@@ -1,8 +1,9 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' hide Response, FormData, MultipartFile;
+import 'package:ozon/model/admin_model.dart';
 import 'package:ozon/model/device_model.dart';
+import 'package:ozon/model/station_model.dart';
+import 'package:ozon/model/user_model.dart';
 
 import '../constant/api_url.dart';
 import 'custom_log.dart';
@@ -33,6 +34,9 @@ class ApiDioController {
         url,
         queryParameters: query,
       );
+
+      print('ApiResponse: $response');
+
       if (response.statusCode == 200) {
         if (response.data!['message'] == "success") {
           if (response.data!['data'] != null) {
@@ -163,22 +167,15 @@ class ApiDioController {
     required Function(Map<String, dynamic>) asModel,
   }) async {
     try {
-      // dio.options.headers['x-access-token'] =
-      //     Get.find<GlobalController>().accessToken.value;
-
       Response<Map<String, dynamic>> response = await dio.delete(
         url,
         data: body,
       );
-
-      // CustomLog.log(response.data);
-
       if (response.statusCode == 200) {
         if (response.data!['message']) {
           return asModel(response.data!);
         }
       }
-
       return null;
     } on DioError catch (e) {
       CustomLog.log(e);
@@ -189,43 +186,12 @@ class ApiDioController {
     }
   }
 
-  // static Future<bool> getAndSaveToken(String tokenFireBase) async {
-  //   try {
-  //     Dio dio = Dio(options);
-  //
-  //     Response response = await dio.post('$_baseUrl/api/auth/verify',
-  //         options:
-  //         Options(headers: {'Authorization': 'Bearer $tokenFireBase'}));
-  //     if (response.statusCode == 200) {
-  //       UserInformation info = UserInformation.fromJson(response.data['data']);
-  //       info.firebaseToken = tokenFireBase;
-  //       UserPref().setUser(info);
-  //       Get.find<GlobalController>().setToken(tokenFireBase);
-  //     }
-  //     return true;
-  //   } on DioError catch (e) {
-  //     // The request was made and the server responded with a status code
-  //     // that falls out of the range of 2xx and is also not 304.
-  //     if (e.response != null) {
-  //       CustomLog.log('Dio error!');
-  //       CustomLog.log('STATUS: ${e.response?.statusCode}');
-  //       CustomLog.log('DATA: ${e.response?.data}');
-  //       CustomLog.log('HEADERS: ${e.response?.headers}');
-  //     } else {
-  //       // Error due to setting up or sending the request
-  //       CustomLog.log('Error sending request!');
-  //       CustomLog.log(e.message);
-  //     }
-  //     return false;
-  //   }
-  // }
-  //
   static Future<List<DeviceModel>> getDevice() async {
     Dio dio = Dio(options);
 
     List<DeviceModel> listDevice = [];
     await getData<List<DeviceModel>>(
-      url: ApiURL.bannerUrl,
+      url: ApiURL.getDevice,
       dio: dio,
       asModel: (map) {
         final responseList = map as List;
@@ -233,5 +199,228 @@ class ApiDioController {
       },
     );
     return listDevice;
+  }
+
+  static Future<List<DeviceModel>> registerAdmin(AdminModel adminModel) async {
+    Dio dio = Dio(options);
+
+    List<DeviceModel> listDevice = [];
+    await postMethods(
+      url: ApiURL.registerAdmin,
+      dio: dio,
+      body: adminModel.toJson(),
+      asModel: (map) {},
+    );
+    return listDevice;
+  }
+
+  static Future<List<AdminModel>> loginAdmin(AdminModel adminModel) async {
+    Dio dio = Dio(options);
+
+    List<AdminModel> adminModels = [];
+    await postMethods(
+      url: ApiURL.loginAdmin,
+      dio: dio,
+      body: adminModel.toJson(),
+      asModel: (map) {
+        final responseList = map as List;
+        adminModels = responseList.map((e) => AdminModel.fromJson(e)).toList();
+      },
+    );
+    return adminModels;
+  }
+
+  static Future<List<AdminModel>> getAdmin(AdminModel adminModel) async {
+    Dio dio = Dio(options);
+
+    List<AdminModel> adminModels = [];
+    await postMethods(
+      url: ApiURL.getAdmin,
+      dio: dio,
+      body: adminModel.toJson(),
+      asModel: (map) {
+        final responseList = map as List;
+        adminModels = responseList.map((e) => AdminModel.fromJson(e)).toList();
+      },
+    );
+    return adminModels;
+  }
+
+  static Future<List<AdminModel>> updateAdmin(AdminModel adminModel) async {
+    Dio dio = Dio(options);
+
+    List<AdminModel> adminModels = [];
+    await postMethods(
+      url: ApiURL.updateAdmin,
+      dio: dio,
+      body: adminModel.toJson(),
+      asModel: (map) {
+        final responseList = map as List;
+        adminModels = responseList.map((e) => AdminModel.fromJson(e)).toList();
+      },
+    );
+    return adminModels;
+  }
+
+  static Future<List<AdminModel>> updatePassAdmin(AdminModel adminModel) async {
+    Dio dio = Dio(options);
+
+    List<AdminModel> adminModels = [];
+    await postMethods(
+      url: ApiURL.updatePassAdmin,
+      dio: dio,
+      body: adminModel.toJson(),
+      asModel: (map) {
+        final responseList = map as List;
+        adminModels = responseList.map((e) => AdminModel.fromJson(e)).toList();
+      },
+    );
+    return adminModels;
+  }
+
+  static Future<List<AdminModel>> deleteAdmin(AdminModel adminModel) async {
+    Dio dio = Dio(options);
+
+    List<AdminModel> adminModels = [];
+    await postMethods(
+      url: ApiURL.deleteAdmin,
+      dio: dio,
+      body: adminModel.toJson(),
+      asModel: (map) {
+        final responseList = map as List;
+        adminModels = responseList.map((e) => AdminModel.fromJson(e)).toList();
+      },
+    );
+    return adminModels;
+  }
+
+  static Future<List<DeviceModel>> registerUser(UserModel userModel) async {
+    Dio dio = Dio(options);
+
+    List<DeviceModel> listDevice = [];
+    await postMethods(
+      url: ApiURL.registerUser,
+      dio: dio,
+      body: userModel.toJson(),
+      asModel: (map) {},
+    );
+    return listDevice;
+  }
+
+  static Future<List<StationModel>> registerStation(
+      StationModel stationModel) async {
+    Dio dio = Dio(options);
+
+    List<StationModel> stations = [];
+    await postMethods(
+      url: ApiURL.registerStation,
+      dio: dio,
+      body: stationModel.toJson(),
+      asModel: (map) {
+        final responseList = map as List;
+        stations = responseList.map((e) => StationModel.fromJson(e)).toList();
+      },
+    );
+    return stations;
+  }
+
+  static Future<List<StationModel>> getStation(
+      StationModel stationModel) async {
+    Dio dio = Dio(options);
+
+    List<StationModel> stations = [];
+    await postMethods(
+      url: ApiURL.getStation,
+      dio: dio,
+      body: stationModel.toJson(),
+      asModel: (map) {
+        final responseList = map as List;
+        stations = responseList.map((e) => StationModel.fromJson(e)).toList();
+      },
+    );
+    return stations;
+  }
+
+  static Future<List<StationModel>> updateStation(
+      StationModel stationModel) async {
+    Dio dio = Dio(options);
+
+    List<StationModel> stations = [];
+    await postMethods(
+      url: ApiURL.updateStation,
+      dio: dio,
+      body: stationModel.toJson(),
+      asModel: (map) {
+        final responseList = map as List;
+        stations = responseList.map((e) => StationModel.fromJson(e)).toList();
+      },
+    );
+    return stations;
+  }
+
+  static Future<List<StationModel>> deleteStation(
+      StationModel stationModel) async {
+    Dio dio = Dio(options);
+
+    List<StationModel> stations = [];
+    await postMethods(
+      url: ApiURL.deleteStation,
+      dio: dio,
+      body: stationModel.toJson(),
+      asModel: (map) {
+        final responseList = map as List;
+        stations = responseList.map((e) => StationModel.fromJson(e)).toList();
+      },
+    );
+    return stations;
+  }
+
+  static Future<List<DeviceModel>> registerDevice(
+      DeviceModel deviceModel) async {
+    Dio dio = Dio(options);
+
+    List<DeviceModel> devices = [];
+    await postMethods(
+      url: ApiURL.registerDevice,
+      dio: dio,
+      body: deviceModel.toJson(),
+      asModel: (map) {
+        final responseList = map as List;
+        devices = responseList.map((e) => DeviceModel.fromJson(e)).toList();
+      },
+    );
+    return devices;
+  }
+
+  static Future<List<DeviceModel>> updateDevice(DeviceModel deviceModel) async {
+    Dio dio = Dio(options);
+
+    List<DeviceModel> devices = [];
+    await postMethods(
+      url: ApiURL.deleteStation,
+      dio: dio,
+      body: deviceModel.toJson(),
+      asModel: (map) {
+        final responseList = map as List;
+        devices = responseList.map((e) => DeviceModel.fromJson(e)).toList();
+      },
+    );
+    return devices;
+  }
+
+  static Future<List<DeviceModel>> deleteDevice(DeviceModel deviceModel) async {
+    Dio dio = Dio(options);
+
+    List<DeviceModel> devices = [];
+    await postMethods(
+      url: ApiURL.deleteStation,
+      dio: dio,
+      body: deviceModel.toJson(),
+      asModel: (map) {
+        final responseList = map as List;
+        devices = responseList.map((e) => DeviceModel.fromJson(e)).toList();
+      },
+    );
+    return devices;
   }
 }
