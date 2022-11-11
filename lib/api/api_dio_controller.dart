@@ -227,7 +227,7 @@ class ApiDioController {
   static Future<UserModel> login(UserModel userModel) async {
     Dio dio = Dio(options);
 
-    UserModel userModel = UserModel();
+    UserModel user = UserModel();
     List<UserModel> listUser = [];
     await postMethods(
       url: ApiURL.loginAdmin,
@@ -236,10 +236,10 @@ class ApiDioController {
       asModel: (map) {
         final responseList = map as List;
         listUser = responseList.map((e) => UserModel.fromJson(e)).toList();
-        userModel = listUser[0];
+        user = listUser[0];
       },
     );
-    return userModel;
+    return user;
   }
 
   static Future<List<AdminModel>> getAdmin(AdminModel adminModel) async {
