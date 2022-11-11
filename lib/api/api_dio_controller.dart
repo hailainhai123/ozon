@@ -69,15 +69,15 @@ class ApiDioController {
     required Function(Map<String, dynamic>) asModel,
   }) async {
     try {
-      print(body);
-      print(url);
+      print('Request body: $body');
+      print('Request url: $url');
       // dio.options.headers['Authorization'] =
       // "Bearer ${Get.find<GlobalController>().accessToken.value}";
-
       Response<Map<String, dynamic>> response = await dio.post(
         url,
         data: body,
       );
+      print('Response: ${response.data}');
       CustomLog.log(response);
       if (response.statusCode == 200) {
         if (response.data!['message'] == "success") {
@@ -87,9 +87,11 @@ class ApiDioController {
       return null;
     } on DioError catch (e) {
       CustomLog.log(e);
+      Get.snackbar('Lỗi', 'Lỗi hệ thống, xin vui lòng thử lại sau!');
       return null;
     } catch (e) {
       CustomLog.log(e);
+      Get.snackbar('Lỗi', 'Lỗi hệ thống, xin vui lòng thử lại sau!');
       return null;
     }
   }
@@ -201,33 +203,43 @@ class ApiDioController {
     return listDevice;
   }
 
-  static Future<List<DeviceModel>> registerAdmin(AdminModel adminModel) async {
+  static Future<bool> registerAdmin(AdminModel adminModel) async {
     Dio dio = Dio(options);
 
-    List<DeviceModel> listDevice = [];
+    bool registerStatus = false;
     await postMethods(
       url: ApiURL.registerAdmin,
       dio: dio,
       body: adminModel.toJson(),
-      asModel: (map) {},
+      asModel: (map) {
+        if (map['message'] == 'success') {
+          registerStatus = true;
+          Get.snackbar('Đăng ký', 'Đăng ký thành công');
+        } else {
+          Get.snackbar('Đăng ký', 'Đăng ký thất bại');
+          registerStatus = false;
+        }
+      },
     );
-    return listDevice;
+    return registerStatus;
   }
 
-  static Future<List<AdminModel>> loginAdmin(AdminModel adminModel) async {
+  static Future<UserModel> login(UserModel userModel) async {
     Dio dio = Dio(options);
 
-    List<AdminModel> adminModels = [];
+    UserModel userModel = UserModel();
+    List<UserModel> listUser = [];
     await postMethods(
       url: ApiURL.loginAdmin,
       dio: dio,
-      body: adminModel.toJson(),
+      body: userModel.toJson(),
       asModel: (map) {
         final responseList = map as List;
-        adminModels = responseList.map((e) => AdminModel.fromJson(e)).toList();
+        listUser = responseList.map((e) => UserModel.fromJson(e)).toList();
+        userModel = listUser[0];
       },
     );
-    return adminModels;
+    return userModel;
   }
 
   static Future<List<AdminModel>> getAdmin(AdminModel adminModel) async {
@@ -307,21 +319,25 @@ class ApiDioController {
     return listDevice;
   }
 
-  static Future<List<StationModel>> registerStation(
-      StationModel stationModel) async {
+  static Future<bool> registerStation(StationModel stationModel) async {
     Dio dio = Dio(options);
 
-    List<StationModel> stations = [];
+    bool registerStationStatus = false;
     await postMethods(
       url: ApiURL.registerStation,
       dio: dio,
       body: stationModel.toJson(),
       asModel: (map) {
-        final responseList = map as List;
-        stations = responseList.map((e) => StationModel.fromJson(e)).toList();
+        if (map['message'] == 'success') {
+          registerStationStatus = true;
+          Get.snackbar('Thêm trạm', 'Thêm trạm thành công');
+        } else {
+          Get.snackbar('Thêm trạm', 'Thêm trạm thất bại');
+          registerStationStatus = false;
+        }
       },
     );
-    return stations;
+    return registerStationStatus;
   }
 
   static Future<List<StationModel>> getStation(
@@ -333,6 +349,21 @@ class ApiDioController {
       url: ApiURL.getStation,
       dio: dio,
       body: stationModel.toJson(),
+      asModel: (map) {
+        final responseList = map as List;
+        stations = responseList.map((e) => StationModel.fromJson(e)).toList();
+      },
+    );
+    return stations;
+  }
+
+  static Future<List<StationModel>> getAllStation() async {
+    Dio dio = Dio(options);
+
+    List<StationModel> stations = [];
+    await getData<List<StationModel>>(
+      url: ApiURL.getAllStation,
+      dio: dio,
       asModel: (map) {
         final responseList = map as List;
         stations = responseList.map((e) => StationModel.fromJson(e)).toList();
@@ -375,21 +406,26 @@ class ApiDioController {
     return stations;
   }
 
-  static Future<List<DeviceModel>> registerDevice(
+  static Future<bool> registerDevice(
       DeviceModel deviceModel) async {
     Dio dio = Dio(options);
 
-    List<DeviceModel> devices = [];
+    bool registerDeviceStatus = false;
     await postMethods(
       url: ApiURL.registerDevice,
       dio: dio,
       body: deviceModel.toJson(),
       asModel: (map) {
-        final responseList = map as List;
-        devices = responseList.map((e) => DeviceModel.fromJson(e)).toList();
+        if (map['message'] == 'success') {
+          registerDeviceStatus = true;
+          Get.snackbar('Thêm trạm', 'Thêm trạm thành công');
+        } else {
+          Get.snackbar('Thêm trạm', 'Thêm trạm thất bại');
+          registerDeviceStatus = false;
+        }
       },
     );
-    return devices;
+    return registerDeviceStatus;
   }
 
   static Future<List<DeviceModel>> updateDevice(DeviceModel deviceModel) async {

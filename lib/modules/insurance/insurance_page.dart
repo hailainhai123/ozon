@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 
+import '../../widget_custom/app_bar.dart';
+
 class InsurancePage extends StatelessWidget {
   InsurancePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: const Text(
-          'Bảo hành',
-        ),
-        centerTitle: true,
+      appBar: CustomAppBar(
+        title: 'Truy vấn',
+        isBack: false,
       ),
       body: Container(
         decoration: const BoxDecoration(

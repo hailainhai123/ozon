@@ -20,14 +20,14 @@ class AdminModel {
   );
 
   AdminModel.fromJson(Map<String, dynamic> json)
-      : user = json['user'],
-        pass = json['pass'],
-        passmoi = json['passmoi'],
-        name = json['name'],
-        phone = json['phone'],
-        address = json['address'],
-        birthDate = json['birthDate'],
-        playerId = json['playerId'];
+      : user = json['user'] ?? '',
+        pass = json['pass'] ?? '',
+        passmoi = json['passmoi'] ?? '',
+        name = json['name'] ?? '',
+        phone = json['phone'] ?? '',
+        address = json['address'] ?? '',
+        birthDate = json['birthDate'] ?? '',
+        playerId = json['playerId'] ?? '';
 
   Map<String, dynamic> toJson() => {
         'user': user,

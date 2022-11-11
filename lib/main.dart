@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       getPages: pages,
       builder: EasyLoading.init(),
-      initialRoute: kLoginPage,
+      initialRoute: globalController.isLogin.value ? kRouteIndex : kLoginPage,
     );
   }
 }

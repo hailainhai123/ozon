@@ -8,14 +8,13 @@ import '../modules/contact/contact_controller.dart';
 import '../modules/home/home_controller.dart';
 import '../modules/insurance/insurance_controller.dart';
 import '../modules/login/login_controller.dart';
+import '../modules/register/register_controller.dart';
+import '../modules/station/station_controller.dart';
 
 class GlobalBinding implements Bindings {
   @override
   void dependencies() {
     Get.put(NavController(), permanent: true);
-    // Get.put(NotificationController(), permanent: true);
-    Get.put(LoginController(), permanent: false);
-    Get.put(HomeController(), permanent: true);
   }
 }
 
@@ -26,45 +25,42 @@ class HomeBinding implements Bindings {
     Get.put(InsuranceController(), permanent: true);
     Get.put(UserController(), permanent: true);
     Get.put(ContactController(), permanent: true);
+  }
+}
+
+
+class LoginBinding implements Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut(() => LoginController());
+  }
+}
+
+class RegisterBinding implements Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut(() => RegisterController());
+  }
+}
+
+
+class StationBinding implements Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut(() => StationController());
+  }
+}
+
+class DeviceBinding implements Bindings {
+  @override
+  void dependencies() {
     Get.put(DeviceController(), permanent: true);
+  }
+}
+
+class DeviceDetailBinding implements Bindings {
+  @override
+  void dependencies() {
     Get.put(DeviceDetailController(), permanent: true);
-    // Get.put(BookMarkController(), permanent: true);
-    // Get.put(UserController(), permanent: true);
-  }
-}
-
-class SearchBinding implements Bindings {
-  @override
-  void dependencies() {
-    // Get.put(() => SearchController());
-  }
-}
-
-// class DeviceBinding implements Bindings {
-//   @override
-//   void dependencies() {
-//     Get.put(() => DeviceController(), permanent: true);
-//   }
-// }
-
-class BookDetailsBinding implements Bindings {
-  @override
-  void dependencies() {
-    // Get.lazyPut(() => BookDetailsController());
-    // Get.lazyPut(() => ReadingController());
-  }
-}
-
-class CommentsBinding implements Bindings {
-  @override
-  void dependencies() {
-    // Get.lazyPut(() => CommentsPageController());
-  }
-}
-
-class GridPageBinding implements Bindings {
-  @override
-  void dependencies() {
-    // Get.lazyPut(() => GridPagesController());
   }
 }

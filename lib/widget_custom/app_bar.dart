@@ -37,7 +37,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       title: Text(title ?? '', style: Styles.heading4.copyWith(
-        color: AppColors.background
+        color: AppColors.black
       ),),
       backgroundColor: backgroundColor,
       elevation: 0,
@@ -55,7 +55,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
               child: const Icon(
                 Icons.chevron_left,
                 size: 36,
-                color: AppColors.background,
+                color: AppColors.black,
               ),
             )
           : leading ?? const SizedBox(),

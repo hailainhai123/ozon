@@ -2,7 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ozon/model/device_model.dart';
+import 'package:ozon/model/station_model.dart';
 
+import '../../api/api_dio_controller.dart';
 import '../bottom_app_bar/navigation_controller.dart';
 
 class HomeController extends GetxController with GetTickerProviderStateMixin {
@@ -12,6 +15,7 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
   late TabController tabController;
   int currentIndex = 0;
   late Timer timer;
+  var listStation = <StationModel>[].obs;
 
   @override
   void onInit() {
@@ -54,8 +58,9 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
     scrollController.addListener(onScrolling);
   }
 
-  Future initData() async {
+  Future<void> initData() async {
     tabController = TabController(length: 4, vsync: this);
+    getListStation();
   }
 
   onScrolling() {
@@ -73,45 +78,13 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
         (kBgHeight - scrollController.offset).clamp(0.0, kBgHeight);
   }
 
-  var FOOD_DATA = [
-    {
-      "name": "Trạm Hà Đông",
-      "brand": "Hà nội",
-      "price": 3,
-      "image":"item_ozon_transparent.png",
-      "active": "2",
-      "stop": "1",
-    },
-    {
-      "name": "Trạm Mỹ Đình",
-      "brand": "Hà nội",
-      "price": 3,
-      "image":"item_ozon_transparent.png",
-      "active": "2",
-      "stop": "1",
-    },
-    {
-      "name": "Trạm Thanh Xuân",
-      "brand": "Hà nội",
-      "price": 3,
-      "image":"item_ozon_transparent.png",
-      "active": "2",
-      "stop": "1",
-    },
-    {
-      "name": "Trạm Long Biên",
-      "brand": "Hà nội",
-      "price": 3,
-      "image":"item_ozon_transparent.png"     ,"active": "2",
-      "stop": "1",
-    },
-    {
-      "name": "Trạm Gia Lâm",
-      "brand": "Hà nội",
-      "price": 3,
-      "image":"item_ozon_transparent.png",
-      "active": "2",
-      "stop": "1",
-    },
-  ];
+  Future<void> getListStation() async {
+    listStation.clear();
+    try {
+      var list = await ApiDioController.getAllStation();
+      listStation.addAll(list);
+    } catch (e) {
+      print(e);
+    }
+  }
 }

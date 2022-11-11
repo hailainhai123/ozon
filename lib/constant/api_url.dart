@@ -9,6 +9,7 @@ class ApiURL {
   static const String registerUser = "/registeruser";
   static const String registerStation = "/registertram";
   static const String getStation = "/gettram";
+  static const String getAllStation = "//getalltram";
   static const String updateStation = "/updatetram";
   static const String deleteStation = "/deletetram";
   static const String registerDevice = "/registerdevice";

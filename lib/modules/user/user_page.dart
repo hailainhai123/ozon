@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ozon/constant/routes.dart';
 
+import '../../widget_custom/app_bar.dart';
+
 class UserPage extends StatelessWidget {
   const UserPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: const Text('Tài khoản'),
-        centerTitle: true,
+      appBar: CustomAppBar(
+        title: 'Tài khoản',
+        isBack: false,
       ),
       body:Container(
         decoration: const BoxDecoration(

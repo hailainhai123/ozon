@@ -1,32 +1,32 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ozon/model/admin_model.dart';
-import 'package:ozon/model/user_model.dart';
-import 'package:ozon/modules/login/login_controller.dart';
+import 'package:ozon/modules/register/register_controller.dart';
 import 'package:sign_in_button/sign_in_button.dart';
 
 import '../../constant/routes.dart';
-import '../../constant/styles.dart';
-import '../../utils/colors.dart';
 import '../../utils/icons.dart';
 import '../../widget_custom/app_input.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({Key? key}) : super(key: key);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
 
-  final LoginController controller = Get.find();
+  final RegisterController controller = Get.find();
 
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
   }
 
@@ -34,6 +34,9 @@ class _LoginPageState extends State<LoginPage> {
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
+    _phoneController.dispose();
+    _addressController.dispose();
+    _nameController.dispose();
     super.dispose();
   }
 
@@ -48,7 +51,6 @@ class _LoginPageState extends State<LoginPage> {
             }
             return null;
           },
-          autofocus: true,
           enabled: true,
           hintText: 'Tên đăng nhập',
           iconLeft: IconEnums.mail,
@@ -74,27 +76,69 @@ class _LoginPageState extends State<LoginPage> {
           obscureText: true,
           // onChangeValue: _loginStore.onChangePassword,
         ),
+        AppInput(
+          controller: _nameController,
+          maxLine: 1,
+          validator: (password) {
+            if (password == null || password.isEmpty) {
+              return '';
+            }
+            return null;
+          },
+          hintText: 'Tên',
+          iconLeft: IconEnums.lock,
+          // onChangeValue: _loginStore.onChangePassword,
+        ),
+        AppInput(
+          controller: _phoneController,
+          maxLine: 1,
+          validator: (password) {
+            if (password == null || password.isEmpty) {
+              return '';
+            }
+            return null;
+          },
+          hintText: 'SĐT',
+          iconLeft: IconEnums.lock,
+          // onChangeValue: _loginStore.onChangePassword,
+        ),
+        AppInput(
+          controller: _addressController,
+          maxLine: 1,
+          validator: (password) {
+            if (password == null || password.isEmpty) {
+              return '';
+            }
+            return null;
+          },
+          hintText: 'Địa chỉ',
+          iconLeft: IconEnums.lock,
+          // onChangeValue: _loginStore.onChangePassword,
+        ),
       ],
     );
   }
 
-  Widget _submitButton(
-    String buttonText,
-  ) {
+  Widget _submitButton(String buttonText, String? kNamePage) {
     return InkWell(
       onTap: () async {
-        var userModel = UserModel(
-          user: _emailController.text,
-          pass: _passwordController.text,
-          adminId: '',
-          playerId: '',
-          birthDate: '',
-          address: '',
-          phone: '',
-          name: '',
-          passmoi: '',
-        );
-        await controller.login(userModel);
+        if (kNamePage != null) {
+          Get.toNamed(kNamePage);
+        } else {
+          if (await controller.register(AdminModel(
+              _emailController.text,
+              _passwordController.text,
+              '',
+              _nameController.text,
+              _phoneController.text,
+              _addressController.text,
+              '',
+              'playerId'))) {
+            Get.toNamed(kLoginPage);
+          } else {
+
+          }
+        }
       },
       child: Container(
         width: MediaQuery.of(context).size.width,
@@ -115,7 +159,7 @@ class _LoginPageState extends State<LoginPage> {
                 colors: [Colors.lightBlueAccent, Colors.blueAccent])),
         child: Text(
           buttonText,
-          style: const TextStyle(fontSize: 20, color: Colors.white),
+          style: TextStyle(fontSize: 20, color: Colors.white),
         ),
       ),
     );
@@ -125,14 +169,13 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: SingleChildScrollView(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(
-                  height: 16.0,
-                ),
                 Image.asset("assets/images/ic_evn.png"),
                 Padding(
                     padding: const EdgeInsets.all(24.0),
@@ -150,24 +193,10 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(
                   height: 24.0,
                 ),
-                _submitButton(
-                  'Đăng nhập',
-                ),
                 const SizedBox(
                   height: 24.0,
                 ),
-                Text(
-                  'Phiên bản 1.0.0',
-                  style:
-                      Styles.subtitleSmallest.copyWith(color: AppColors.black),
-                ),
-                const SizedBox(
-                  height: 4.0,
-                ),
-                Text(
-                  'Sản phẩm phát triển bởi công ty TAWU',
-                  style: Styles.heading4.copyWith(color: AppColors.black),
-                ),
+                _submitButton('Đăng ký', null),
               ],
             ),
           ),

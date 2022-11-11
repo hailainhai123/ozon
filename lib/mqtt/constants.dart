@@ -55,3 +55,30 @@ class ViewConstants {
   static const double defaultBorderRadiusTextInput = 8;
   static const double defaultBorderRadiusHeader = 0;
 }
+
+class Constants {
+
+  /// http headers
+  static Map<String, String> apiHeaders = {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+  };
+
+  static String convertPhone(String phone) {
+    if (phone[0] == '0') {
+      return '+84' + phone.substring(1);
+    } else {
+      return phone;
+    }
+  }
+
+  /// e.t.c.
+  static String nameUser = "";
+  static String phone = "";
+  static String address = "";
+  static String birthDate = "";
+  static String pass = "";
+  static String user = "";
+  static String isLogin = '';
+}
+

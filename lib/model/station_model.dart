@@ -14,11 +14,11 @@ class StationModel {
   );
 
   StationModel.fromJson(Map<String, dynamic> json)
-      : adminId = json['adminId'],
-        stationId = json['stationId'],
-        name = json['name'],
-        description = json['description'],
-        location = json['location'];
+      : adminId = json['adminId'] ?? '',
+        stationId = json['stationId'] ?? '',
+        name = json['name'] ?? '',
+        description = json['description'] ?? '',
+        location = json['location'] ?? '';
 
   Map<String, dynamic> toJson() => {
         'stationId': stationId,

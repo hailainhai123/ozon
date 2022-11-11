@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 import 'package:ozon/modules/device/device_controller.dart';
+import 'package:ozon/widget_custom/app_bar.dart';
 
 import '../../constant/routes.dart';
 import '../../model/device_model.dart';
@@ -17,31 +18,17 @@ class DevicePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text('Danh sách thiết bị'),
-        leading: TouchableOpacity(
-          onTap: () {
-            Get.back();
-          },
-          child: const Icon(
-            Icons.chevron_left,
-            size: 36,
-            color: AppColors.black,
-          ),
-        ),
+      appBar: CustomAppBar(
+        title: 'Danh sách thiết bị',
+        isBack: true,
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-        },
-        elevation: 2.0,
-        child: const Icon(Icons.add),
-      ),
-      // body: controller.isLoading.value
-      //     ? const Center(
-      //   child: CircularProgressIndicator(),
-      // )
-      //     : buildBody(),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     Get.toNamed(kAddDevicePage);
+      //   },
+      //   elevation: 2.0,
+      //   child: const Icon(Icons.add),
+      // ),
       body: buildBody(),
     );
   }
@@ -55,26 +42,29 @@ class DevicePage extends StatelessWidget {
       ),
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
       width: double.infinity,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(
-            child: GridView.builder(
-              padding: const EdgeInsets.all(15),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 0.85,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 2,
-              ),
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                return buildItem(controller.listDevice[index]);
-              },
-              itemCount: controller.listDevice.length,
-            ),
-          )
-        ],
+      child: Obx(() {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: GridView.builder(
+                  padding: const EdgeInsets.all(15),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 0.85,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 2,
+                  ),
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return buildItem(controller.listDevice[index]);
+                  },
+                  itemCount: controller.listDevice.length,
+                ),
+              )
+            ],
+          );
+        }
       ),
     );
   }
@@ -95,16 +85,17 @@ class DevicePage extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
+            children: const [
               Text(
-                deviceModel.deviceId ?? "",
+                // deviceModel.deviceId ?? "",
+                "ma thiet bi",
               ),
-              const Text( '20',
+              Text( '20',
                   style: TextStyle(
                       fontSize: 45,
                       color: Colors.blue,
                       fontWeight: FontWeight.bold)),
-              const Text('ppm',
+              Text('ppm',
                   style: TextStyle(fontSize: 16)),
             ],
           ),
