@@ -11,7 +11,7 @@ import '../home/home_controller.dart';
 class LoginController extends GetxController {
 
   var user = UserModel().obs;
-
+  var success = false.obs;
   @override
   void onInit() {
     // TODO: implement onInit
@@ -32,8 +32,9 @@ class LoginController extends GetxController {
     try {
       var userModelRespone =  await ApiDioController.login(userModel);
       user.value = userModelRespone;
+      success.value = true;
       final SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setBool(Constants.isLogin, true);
+      await prefs.setBool(Constants.firstTimeLoadApp, true);
       await prefs.setString(Constants.user, userModelRespone.user!);
       await prefs.setString(Constants.pass, userModelRespone.pass!);
       await prefs.setString(Constants.nameUser, userModelRespone.name!);
@@ -41,6 +42,7 @@ class LoginController extends GetxController {
       await prefs.setString(Constants.phone, userModelRespone.phone!);
       await prefs.setString(Constants.birthDate, userModelRespone.birthDate!);
     } catch (e) {
+      success.value = false;
       print(e);
     }
   }

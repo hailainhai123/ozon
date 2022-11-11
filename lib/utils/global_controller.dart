@@ -24,7 +24,7 @@ class GlobalController extends GetxController {
 
   @override
   void onInit() async {
-    initMqtt();
+    // initMqtt();
     checkLogin();
     super.onInit();
   }
@@ -53,6 +53,7 @@ class GlobalController extends GetxController {
 
   Future<void> checkLogin() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    isLogin.value = await prefs.getBool(Constants.isLogin)!;
+    isLogin.value = await prefs.getBool(Constants.firstTimeLoadApp)!;
+    print('haiabc pref ${isLogin.value}');
   }
 }

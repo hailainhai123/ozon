@@ -12,6 +12,7 @@ import 'constant/theme.dart';
 import 'modules/login/login_page.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
 
@@ -28,17 +29,21 @@ class MyApp extends StatelessWidget {
     //   globalController.mqttClientWrapper.prepareMqttClient('topic');
     // }
 
-    globalController.mqttClientWrapper.prepareMqttClient('topic');
+    // globalController.mqttClientWrapper.prepareMqttClient('topic');
 
-    return GetMaterialApp(
-      smartManagement: SmartManagement.onlyBuilder,
-      title: 'Ozon',
-      theme: lightTheme(),
-      initialBinding: GlobalBinding(),
-      debugShowCheckedModeBanner: false,
-      getPages: pages,
-      builder: EasyLoading.init(),
-      initialRoute: globalController.isLogin.value ? kRouteIndex : kLoginPage,
+    return Obx(() {
+      print('haiabc ${globalController.isLogin.value}');
+      return GetMaterialApp(
+          smartManagement: SmartManagement.onlyBuilder,
+          title: 'Ozon',
+          theme: lightTheme(),
+          initialBinding: GlobalBinding(),
+          debugShowCheckedModeBanner: false,
+          getPages: pages,
+          builder: EasyLoading.init(),
+          initialRoute: globalController.isLogin.value ? kRouteIndex : kLoginPage,
+        );
+      }
     );
   }
 }

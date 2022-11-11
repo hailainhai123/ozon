@@ -95,6 +95,11 @@ class _LoginPageState extends State<LoginPage> {
           passmoi: '',
         );
         await controller.login(userModel);
+        if (controller.success.value) {
+          Get.toNamed(kRouteIndex);
+        } else {
+          Get.snackbar('Lỗi', 'Lỗi hệ thống, xin vui lòng thử lại sau!');
+        }
       },
       child: Container(
         width: MediaQuery.of(context).size.width,

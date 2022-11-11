@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ozon/constant/routes.dart';
 import 'package:ozon/model/station_model.dart';
+import 'package:ozon/utils/global_controller.dart';
 
 import '../../widget_custom/app_bar.dart';
 import 'home_controller.dart';
@@ -16,6 +17,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final HomeController controller = Get.find();
+  final GlobalController globalController = Get.find();
   ScrollController scrollController = ScrollController();
   bool closeTopContainer = false;
   double topContainer = 0;
@@ -104,6 +106,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+   print('haiabc ${globalController.isLogin.value}');
     scrollController.addListener(() {
       double value = scrollController.offset / 119;
       setState(() {
