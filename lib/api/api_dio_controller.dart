@@ -77,7 +77,9 @@ class ApiDioController {
         url,
         data: body,
       );
-      print('Response: ${response.data}');
+
+      print('Response data: ${response.data}');
+
       CustomLog.log(response);
       if (response.statusCode == 200) {
         if (response.data!['message'] == "success") {
@@ -234,9 +236,10 @@ class ApiDioController {
       dio: dio,
       body: userModel.toJson(),
       asModel: (map) {
-        final responseList = map as List;
+        final responseList = map['data'] as List;
         listUser = responseList.map((e) => UserModel.fromJson(e)).toList();
         user = listUser[0];
+        print(user);
       },
     );
     return user;
