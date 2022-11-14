@@ -5,6 +5,7 @@ import 'package:ozon/mqtt/constants.dart';
 import 'package:ozon/mqtt/mqttClientWrapper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../constant/routes.dart';
 import '../constant/theme.dart';
 
 class GlobalController extends GetxController {
@@ -25,7 +26,7 @@ class GlobalController extends GetxController {
   @override
   void onInit() async {
     // initMqtt();
-    checkLogin();
+    await checkLogin();
     super.onInit();
   }
 
@@ -52,8 +53,13 @@ class GlobalController extends GetxController {
   }
 
   Future<void> checkLogin() async {
+    await Future.delayed(Duration(seconds: 2));
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    isLogin.value = await prefs.getBool(Constants.firstTimeLoadApp)!;
-    print('haiabc pref ${isLogin.value}');
+    final signIn = await prefs.getBool(Constants.signedIn) ?? false;
+    if (signIn) {
+      Get.toNamed(kRouteIndex);
+    } else {
+      Get.toNamed(kLoginPage);
+    }
   }
 }

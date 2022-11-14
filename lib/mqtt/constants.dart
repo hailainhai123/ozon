@@ -78,7 +78,7 @@ class Constants {
   static String address = "";
   static String birthDate = "";
   static String pass = "";
-  static String user = "";
-  static String firstTimeLoadApp = "FIRST_TIME_LOAD_APP";
+  static String user = "Admin";
+  static String signedIn = "signedIn";
 }
 

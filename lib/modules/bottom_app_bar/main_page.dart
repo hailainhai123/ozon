@@ -14,7 +14,7 @@ class MainPage extends StatelessWidget {
     HomePage(),
     InsurancePage(),
     const ContactPage(),
-    const UserPage(),
+    UserPage(),
   ];
 
   @override

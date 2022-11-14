@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:ozon/model/admin_model.dart';
 import 'package:ozon/model/user_model.dart';
 import 'package:ozon/modules/login/login_controller.dart';
+import 'package:ozon/utils/global_controller.dart';
 import 'package:sign_in_button/sign_in_button.dart';
 
 import '../../constant/routes.dart';

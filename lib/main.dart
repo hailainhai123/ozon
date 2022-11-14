@@ -18,7 +18,6 @@ void main() {
 
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
-  final globalController = Get.put(GlobalController(), permanent: true);
 
   // This widget is the root of your application.
   @override
@@ -31,19 +30,15 @@ class MyApp extends StatelessWidget {
 
     // globalController.mqttClientWrapper.prepareMqttClient('topic');
 
-    return Obx(() {
-      print('haiabc ${globalController.isLogin.value}');
-      return GetMaterialApp(
-          smartManagement: SmartManagement.onlyBuilder,
-          title: 'Ozon',
-          theme: lightTheme(),
-          initialBinding: GlobalBinding(),
-          debugShowCheckedModeBanner: false,
-          getPages: pages,
-          builder: EasyLoading.init(),
-          initialRoute: globalController.isLogin.value ? kRouteIndex : kLoginPage,
-        );
-      }
+    return GetMaterialApp(
+      smartManagement: SmartManagement.onlyBuilder,
+      title: 'Ozon',
+      theme: lightTheme(),
+      initialBinding: GlobalBinding(),
+      debugShowCheckedModeBanner: false,
+      getPages: pages,
+      builder: EasyLoading.init(),
+      initialRoute: kSplash,
     );
   }
 }

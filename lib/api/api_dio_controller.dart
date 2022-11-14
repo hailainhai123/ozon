@@ -245,20 +245,22 @@ class ApiDioController {
     return user;
   }
 
-  static Future<List<AdminModel>> getAdmin(AdminModel adminModel) async {
+  static Future<UserModel> getAdmin() async {
     Dio dio = Dio(options);
 
-    List<AdminModel> adminModels = [];
+    List<UserModel> adminModels = [];
+    UserModel user = UserModel();
     await postMethods(
       url: ApiURL.getAdmin,
       dio: dio,
-      body: adminModel.toJson(),
       asModel: (map) {
         final responseList = map as List;
-        adminModels = responseList.map((e) => AdminModel.fromJson(e)).toList();
+        adminModels = responseList.map((e) => UserModel.fromJson(e)).toList();
+        user = adminModels[0];
+
       },
     );
-    return adminModels;
+    return user;
   }
 
   static Future<List<AdminModel>> updateAdmin(AdminModel adminModel) async {

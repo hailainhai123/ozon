@@ -11,8 +11,10 @@ import '../modules/home/home_page.dart';
 import '../modules/insurance/insurance_page.dart';
 import '../modules/login/login_page.dart';
 import '../modules/register/register_page.dart';
+import '../modules/splash/splash.dart';
 import '../modules/station/add_station_page.dart';
 
+const kSplash = "/splash";
 const kRouteIndex = "/";
 const kHomePage = '/home';
 const kAddStationPage = '/add_station_page';
@@ -25,6 +27,7 @@ const kDeviceDetailPage = '/device_detail_page';
 const kLoginPage = '/login';
 const kRegisterPage = '/register';
 
+final splashPage = GetPage(name: kSplash, page: () => SplashPage(), bindings: []);
 
 final indexPage = GetPage(
     name: kRouteIndex,
@@ -66,6 +69,7 @@ final registerPage = GetPage(
     bindings: [RegisterBinding()]);
 
 final List<GetPage> pages = [
+  splashPage,
   indexPage,
   homePage,
   departmentPage,
