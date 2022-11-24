@@ -1,19 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 import 'package:ozon/modules/device/device_controller.dart';
+import 'package:ozon/utils/global_controller.dart';
 import 'package:ozon/widget_custom/app_bar.dart';
-
 import '../../constant/routes.dart';
 import '../../model/device_model.dart';
-import '../../utils/colors.dart';
-import '../../widget_custom/touchable_opacity.dart';
 
-class DevicePage extends StatelessWidget {
+class DevicePage extends StatefulWidget {
   DevicePage({Key? key}) : super(key: key);
 
-  final DeviceController controller = Get.find();
+  @override
+  State<DevicePage> createState() => _DevicePageState();
+}
 
+class _DevicePageState extends State<DevicePage> {
+  final DeviceController controller = Get.find();
+  final GlobalController globalController = Get.find();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    controller.idStation.value = Get.parameters['idStation'] ?? '';
+    controller.getListDevice(controller.idStation.value);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,16 +32,10 @@ class DevicePage extends StatelessWidget {
         title: 'Danh sách thiết bị',
         isBack: true,
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     Get.toNamed(kAddDevicePage);
-      //   },
-      //   elevation: 2.0,
-      //   child: const Icon(Icons.add),
-      // ),
       body: buildBody(),
     );
   }
+
   Widget buildBody() {
     return Container(
       decoration: const BoxDecoration(
@@ -43,80 +47,76 @@ class DevicePage extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
       width: double.infinity,
       child: Obx(() {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                child: GridView.builder(
-                  padding: const EdgeInsets.all(15),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 0.85,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 2,
-                  ),
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return buildItem(controller.listDevice[index]);
-                  },
-                  itemCount: controller.listDevice.length,
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              child: GridView.builder(
+                padding: const EdgeInsets.all(15),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.85,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 2,
                 ),
-              )
-            ],
-          );
-        }
-      ),
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  return buildItem(controller.listDevice[index]);
+                },
+                itemCount: controller.listDevice.length,
+              ),
+            )
+          ],
+        );
+      }),
     );
   }
 
   Widget buildItem(DeviceModel deviceModel) {
     return GestureDetector(
       onTap: () {
-        Get.toNamed(kDeviceDetailPage);
+        Get.toNamed(kDeviceDetailPage, parameters: {
+          "deviceName": deviceModel.name,
+          "deviceId": deviceModel.deviceId,
+          "stationId": deviceModel.stationId,
+          "location": deviceModel.location,
+          "threshold1": deviceModel.threshold1,
+          "threshold2": deviceModel.threshold2,
+          "threshold3": deviceModel.threshold3,
+        });
       },
       behavior: HitTestBehavior.translucent,
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 2),
         margin: const EdgeInsets.symmetric(vertical: 2, horizontal: 2),
         child: PhysicalModel(
-          color: Colors.white.withOpacity(0.8),
+          color: globalController.colorBackground.value,
           elevation: 5,
           shadowColor: Colors.blue,
           borderRadius: BorderRadius.circular(20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: const [
+            children: [
               Text(
-                // deviceModel.deviceId ?? "",
-                "ma thiet bi",
+                deviceModel.name,
+                style: TextStyle(
+                  color: globalController.colorText.value,
+                ),
               ),
-              Text( '20',
-                  style: TextStyle(
+              Text('${deviceModel.ozone}',
+                  style: const TextStyle(
                       fontSize: 45,
                       color: Colors.blue,
                       fontWeight: FontWeight.bold)),
               Text('ppm',
-                  style: TextStyle(fontSize: 16)),
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: globalController.colorText.value,
+                  )),
             ],
           ),
         ),
       ),
-    );
-  }
-
-  Widget centerProgress() {
-    return Stack(
-      alignment: Alignment.center,
-      children: const [
-        ImageIcon(
-          AssetImage(
-            'assets/images/water_drop.png',
-          ),
-          size: 30,
-          color: Colors.blue,
-        ),
-        Text('1', style: TextStyle(fontSize: 12)),
-      ],
     );
   }
 }

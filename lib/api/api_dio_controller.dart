@@ -6,6 +6,7 @@ import 'package:ozon/model/station_model.dart';
 import 'package:ozon/model/user_model.dart';
 
 import '../constant/api_url.dart';
+import '../constant/routes.dart';
 import 'custom_log.dart';
 
 const int kDefaultTimeOut = 60 * 1000;
@@ -205,6 +206,43 @@ class ApiDioController {
     return listDevice;
   }
 
+  static Future<List<DeviceModel>> getDeviceForIdStation(String idStation) async {
+    Dio dio = Dio(options);
+
+    List<DeviceModel> listDevice = [];
+    await postMethods(
+      url: ApiURL.getDeviceForIdStation,
+      dio: dio,
+      body: {"stationId" : idStation},
+      asModel: (map) {
+        if (map['data'] != null) {
+          final responseList = map['data'] as List;
+          listDevice = responseList.map((e) => DeviceModel.fromJson(e)).toList();
+        }
+      },
+    );
+    return listDevice;
+  }
+
+  static Future<List<DeviceModel>> queryStation(String idStation, String time) async {
+    Dio dio = Dio(options);
+
+    List<DeviceModel> listDevice = [];
+    await postMethods(
+      url: ApiURL.queryStation,
+      dio: dio,
+      body: {"stationId" : idStation, "day" : time},
+      asModel: (map) {
+        if (map['data'] != null) {
+          final responseList = map['data'] as List;
+          listDevice = responseList.map((e) => DeviceModel.fromJson(e)).toList();
+        }
+      },
+    );
+    Get.toNamed(kCustomTablePage);
+    return listDevice;
+  }
+
   static Future<bool> registerAdmin(AdminModel adminModel) async {
     Dio dio = Dio(options);
 
@@ -236,10 +274,16 @@ class ApiDioController {
       dio: dio,
       body: userModel.toJson(),
       asModel: (map) {
-        final responseList = map['data'] as List;
-        listUser = responseList.map((e) => UserModel.fromJson(e)).toList();
-        user = listUser[0];
-        print(user);
+        final message = map['message'] as String;
+        if (message == 'success') {
+          final responseList = map['data'] as List;
+          listUser = responseList.map((e) => UserModel.fromJson(e)).toList();
+          user = listUser[0];
+          print(user);
+        } else {
+          Get.snackbar('Thông báo', 'Đăng nhập thất bại',
+              snackPosition: SnackPosition.TOP);        }
+
       },
     );
     return user;
@@ -257,7 +301,6 @@ class ApiDioController {
         final responseList = map as List;
         adminModels = responseList.map((e) => UserModel.fromJson(e)).toList();
         user = adminModels[0];
-
       },
     );
     return user;
@@ -433,20 +476,25 @@ class ApiDioController {
     return registerDeviceStatus;
   }
 
-  static Future<List<DeviceModel>> updateDevice(DeviceModel deviceModel) async {
+  static Future<bool> updateDevice(DeviceModel deviceModel) async {
     Dio dio = Dio(options);
 
-    List<DeviceModel> devices = [];
-    await postMethods(
-      url: ApiURL.deleteStation,
+    bool updateDeviceStatus = false;
+    await putMethods(
+      url: ApiURL.updateDevice,
       dio: dio,
       body: deviceModel.toJson(),
       asModel: (map) {
-        final responseList = map as List;
-        devices = responseList.map((e) => DeviceModel.fromJson(e)).toList();
+        if (map['message'] == 'success' || map['message'] == 'true') {
+          updateDeviceStatus = true;
+          Get.snackbar('Thông báo', 'Cập nhật thiết bị thành công');
+        } else {
+          Get.snackbar('Thông báo', 'Cập nhật thiết bị thất bại');
+          updateDeviceStatus = false;
+        }
       },
     );
-    return devices;
+    return updateDeviceStatus;
   }
 
   static Future<List<DeviceModel>> deleteDevice(DeviceModel deviceModel) async {

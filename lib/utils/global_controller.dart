@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:ozon/mqtt/constants.dart';
 import 'package:ozon/mqtt/mqttClientWrapper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -10,10 +11,6 @@ import '../constant/theme.dart';
 
 class GlobalController extends GetxController {
   // late MQTTBrowserWrapper mqttBrowserWrapper;
-  late MQTTClientWrapper mqttClientWrapper;
-  // late MQTTBrowserWrapper mqttBrowserWrapper;
-
-  RxString mqttMessage = RxString("");
 
   var userLogin = false.obs;
   var accessToken = "".obs;
@@ -22,34 +19,22 @@ class GlobalController extends GetxController {
   var fontSizeText = [14.0, 16.0, 18.0, 20.0, 22.0, 24.0].obs;
   var fontSize = 14.0.obs;
   var isLogin = false.obs;
+  var darkTheme = false.obs;
+  var colorBackground = Colors.white.obs;
+  var colorText = Colors.black.obs;
 
   @override
   void onInit() async {
     // initMqtt();
+    initOnesignal();
     await checkLogin();
     super.onInit();
   }
 
-  Future initMqtt() async {
-    mqttClientWrapper = MQTTClientWrapper(() {
-      print('Connect success!');
-    }, (message) {
-      mqttMessage.value = message;
-    });
-    // check web or mobile
-    // if (kIsWeb) {
-    //   mqttBrowserWrapper = MQTTBrowserWrapper(() {
-    //     print('Connect success!');
-    //   }, (message) {
-    //     mqttMessage.value = message;
-    //   });
-    // } else {
-    //   mqttClientWrapper = MQTTClientWrapper(() {
-    //     print('Connect success!');
-    //   }, (message) {
-    //     mqttMessage.value = message;
-    //   });
-    // }
+  Future<void> initOnesignal() async {
+    OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
+    await OneSignal.shared
+        .setAppId("15d7af90-30a3-45da-9d0d-94dc37e109ea");
   }
 
   Future<void> checkLogin() async {

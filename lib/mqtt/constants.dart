@@ -24,9 +24,9 @@ const Color FORE_TEXT_COLOR = BACKGROUND_COLOR;
 
 final String server_uri_key = 'serverUri';
 
-final String serverUri = "ws://103.237.145.184";
+final String serverUri = "103.237.145.184";
 
-final int port = 8884;
+final int port = 1884;
 const GET_DEVICE = 'gettbid';
 final String login_topic = "loginuser";
 final String patient_login_topic = "loginbenhnhan";

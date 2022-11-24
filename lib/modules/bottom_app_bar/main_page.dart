@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:ozon/modules/user/user_page.dart';
 import '../contact/contact_page.dart';
 import '../home/home_page.dart';
-import '../insurance/insurance_page.dart';
+import '../query/query_page.dart';
 import 'navigation_bar.dart';
 import 'navigation_controller.dart';
 
@@ -12,8 +12,8 @@ class MainPage extends StatelessWidget {
 
   final pages = [
     HomePage(),
-    InsurancePage(),
-    const ContactPage(),
+    QueryPage(),
+    ContactPage(),
     UserPage(),
   ];
 

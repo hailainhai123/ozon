@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:ozon/utils/global_controller.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 import '../../constant/icons_path.dart';
@@ -16,21 +17,22 @@ class BottomNav {
 
 class NavigationBottomBar extends GetView<NavController> {
   NavigationBottomBar({Key? key}) : super(key: key);
+  final GlobalController globalController = Get.find();
 
   final icons = <BottomNav>[
     BottomNav(icon: IconsPath.navHomeIcon, title: "Trang Chủ"),
     BottomNav(icon: IconsPath.navInsuranceIcon, title: "Truy vấn"),
     BottomNav(icon: IconsPath.navContactIcon, title: "Liên Hệ"),
-    BottomNav(icon: IconsPath.navUserIcon, title: "Tài Khoản"),
+    BottomNav(icon: IconsPath.navSettingIcon, title: "Cài đặt"),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Obx(() {
       return Container(
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          boxShadow: <BoxShadow>[
+        decoration: BoxDecoration(
+          color: globalController.colorBackground.value,
+          boxShadow: const <BoxShadow>[
             BoxShadow(
               color: kGreyColor,
               blurRadius: 0.5,

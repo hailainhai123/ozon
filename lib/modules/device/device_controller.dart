@@ -7,6 +7,7 @@ import '../../model/device_model.dart';
 class DeviceController extends GetxController {
   RxBool isLoading = true.obs;
   var listDevice = <DeviceModel>[].obs;
+  var idStation = ''.obs;
 
   final nameController = TextEditingController();
   final stationIdController = TextEditingController();
@@ -17,14 +18,13 @@ class DeviceController extends GetxController {
   @override
   void onInit() {
     // TODO: implement onInit
-    getListDevice();
     super.onInit();
   }
 
-  Future getListDevice() async {
+  Future getListDevice(String idStation) async {
     listDevice.clear();
     try {
-      var list = await ApiDioController.getDevice();
+      var list = await ApiDioController.getDeviceForIdStation(idStation);
       listDevice.addAll(list);
     } catch (e) {
       print(e);
@@ -43,6 +43,8 @@ class DeviceController extends GetxController {
       '',
       '',
       '',
+      '',
+      0,
     );
     return await ApiDioController.registerDevice(deviceModel);
   }

@@ -69,6 +69,10 @@ dependencies:
   mqtt_client: ^9.6.8
   web_socket_channel: ^2.2.0
   shared_preferences: ^2.0.5
+  flutter_datetime_picker: ^1.5.1
+  fl_chart: ^0.55.2
+  onesignal_flutter: ^3.4.2
+  syncfusion_flutter_charts: ^20.3.57
 
 dev_dependencies:
   flutter_test:

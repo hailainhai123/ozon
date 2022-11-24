@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:ozon/widget_custom/touchable_opacity.dart';
 
 import '../constant/styles.dart';
@@ -49,7 +50,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                 if (onBack != null) {
                   onBack!();
                 } else {
-                  Navigator.of(context).pop();
+                  Get.back();
                 }
               },
               child: const Icon(
@@ -67,7 +68,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                       alignment: Alignment.center,
                       padding: const EdgeInsets.all(8.0),
                       child: TouchableOpacity(
-                          child: Text('Lưu',),
+                          child: const Text('Lưu', style: TextStyle(color: Colors.black),),
                           onTap: () {
                             if (actionFunc == null) return;
                             actionFunc!();

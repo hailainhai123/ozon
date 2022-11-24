@@ -14,6 +14,7 @@ class IconsPath {
   static String navInsuranceIcon = "${svgPath}search.svg";
   static String navContactIcon = "${svgPath}icon_call.svg";
   static String navUserIcon = "${svgPath}user.svg";
+  static String navSettingIcon = "${svgPath}settings.svg";
   static String imageBackground = "${imagesPath}cres_bg.jpg";
 
   //Home images
@@ -23,6 +24,8 @@ class IconsPath {
   //User
   static String bgUserImage = "${imagesPath}bg_user.png";
   static String coinImage = "${svgPath}coin.svg";
+  static String lightMode = "${svgPath}light-mode-icon.svg";
+  static String darkMode = "${svgPath}dark-mode-icon.svg";
 
   // static String paymentIcon = "${svgPath}payment.svg";
   static String paymentIcon = "${imagesPath}payment.png";

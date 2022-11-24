@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:ozon/utils/global_controller.dart';
 
 import '../../widget_custom/app_bar.dart';
 
 class ContactPage extends StatelessWidget {
-  const ContactPage({Key? key}) : super(key: key);
-
+  ContactPage({Key? key}) : super(key: key);
+  final GlobalController globalController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +28,7 @@ class ContactPage extends StatelessWidget {
             children: [
               Container(
                 child: PhysicalModel(
-                  color: Colors.white,
+                  color: globalController.colorBackground.value,
                   elevation: 5,
                   shadowColor: Colors.blue,
                   borderRadius: BorderRadius.circular(20),
@@ -60,7 +62,7 @@ class ContactPage extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label, textAlign: TextAlign.left),
+          Text(label, textAlign: TextAlign.left, style: TextStyle(color: globalController.colorText.value,),),
           FittedBox(
             fit: BoxFit.contain,
             child: Text(content,

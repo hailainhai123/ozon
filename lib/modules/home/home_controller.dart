@@ -16,6 +16,14 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
   int currentIndex = 0;
   late Timer timer;
   var listStation = <StationModel>[].obs;
+  var listIdStation = <String>[].obs;
+  var listDevice = <DeviceModel>[].obs;
+  var listIdDevice = <String>[].obs;
+  var idStation = ''.obs;
+  var idDevice = ''.obs;
+  var nameDevice = ''.obs;
+  var nameStation = ''.obs;
+  var color = Colors.black.obs;
 
   @override
   void onInit() {
@@ -60,7 +68,8 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
 
   Future<void> initData() async {
     tabController = TabController(length: 4, vsync: this);
-    getListStation();
+    await getListStation();
+    // await getListDeviceForIdStation(idStation.value);
   }
 
   onScrolling() {
@@ -80,9 +89,43 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
 
   Future<void> getListStation() async {
     listStation.clear();
+    listIdStation.clear();
     try {
       var list = await ApiDioController.getAllStation();
       listStation.addAll(list);
+      for (var element in listStation) {
+        listIdStation.add(element.stationId);
+        idStation.value = listIdStation.first;
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+  Future<void> getListDeviceForIdStation(String idStation) async {
+    listDevice.clear();
+    listIdDevice.clear();
+    try {
+      var list = await ApiDioController.getDeviceForIdStation(idStation);
+      listDevice.addAll(list);
+      for (var element in listDevice) {
+        listIdDevice.add(element.deviceId);
+        idDevice.value = listIdDevice.first;
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> queryStation(String idStation, String time) async {
+    listDevice.clear();
+    listIdDevice.clear();
+    try {
+      var list = await ApiDioController.queryStation(idStation, time);
+      listDevice.addAll(list);
+      for (var element in listDevice) {
+        listIdDevice.add(element.deviceId);
+        idDevice.value = listIdDevice.first;
+      }
     } catch (e) {
       print(e);
     }

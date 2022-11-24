@@ -1,39 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
+import 'package:ozon/utils/global_controller.dart';
+import 'package:ozon/widget_custom/app_bar.dart';
+import '../../constant/routes.dart';
+import '../../model/device_model.dart';
+import 'device_detail_controller.dart';
 
-import '../../utils/colors.dart';
-import '../../widget_custom/touchable_opacity.dart';
+class DeviceDetailPage extends GetView<DeviceDetailController> {
+  DeviceDetailPage({
+    Key? key,
+  }) : super(key: key);
 
-class DeviceDetailPage extends StatelessWidget {
-  const DeviceDetailPage({Key? key}) : super(key: key);
+  final GlobalController globalController = Get.find();
+
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: const Text(
-          'Chi tiết thiết bị',
-        ),
-        centerTitle: true,
-        leading: TouchableOpacity(
-          onTap: () {
-            Get.back();
+    controller.deviceName.value = Get.parameters['deviceName'] ?? "";
+    controller.deviceModel.value.deviceId = Get.parameters['deviceId'] ?? "";
+    controller.deviceModel.value.stationId = Get.parameters['stationId'] ?? "";
+    controller.deviceModel.value.location = Get.parameters['location'] ?? "";
+    controller.deviceModel.value.threshold1 = Get.parameters['threshold1'] ?? "";
+    controller.deviceModel.value.threshold2 = Get.parameters['threshold2'] ?? "";
+    controller.deviceModel.value.threshold3 = Get.parameters['threshold3'] ?? "";
+    return Obx(() {
+      return Scaffold(
+        appBar: CustomAppBar(
+          title: controller.deviceName.value,
+          actionIcon: const Text('Sửa', style: TextStyle(color: Colors.black),),
+          actionFunc: (){
+            Get.toNamed(kEditDevicePage);
           },
-          child: const Icon(
-            Icons.chevron_left,
-            size: 36,
-            color: AppColors.black,
-          ),
         ),
-      ),
-      body: buildBody(),
-    );
+        body: buildBody(),
+      );
+    });
   }
+
   Widget buildBody() {
     return Container(
       height: double.infinity,
+      width: Get.width,
       decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage("assets/images/bg_evn.jpeg"),
@@ -51,12 +59,12 @@ class DeviceDetailPage extends StatelessWidget {
             ),
             liquidProgress(),
             deviceInfo(),
-            deleteButton(),
           ],
         ),
       ),
     );
   }
+
   Widget liquidProgress() {
     return SizedBox(
       width: Get.width * 0.6,
@@ -77,47 +85,9 @@ class DeviceDetailPage extends StatelessWidget {
     );
   }
 
-  Widget deleteButton() {
-    return Container(
-      height: 36,
-      margin: const EdgeInsets.symmetric(
-        vertical: 8,
-        horizontal: 86,
-      ),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.grey),
-        boxShadow: const [
-          BoxShadow(
-            color: Colors.white,
-            offset: Offset(1.0, 1.0), //(x,y)
-            blurRadius: 6.0,
-          ),
-        ],
-      ),
-      child: GestureDetector(
-        onTap: () {
-        },
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Icon(
-              Icons.delete,
-              color: Colors.red,
-            ),
-            Text(
-              'Xóa thiết bị',
-              style: TextStyle(fontSize: 18, color: Colors.red),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   Widget deviceInfo() {
     String trangthai = '';
-    switch ('1') {
+    switch ('0') {
       case '1':
         trangthai = 'Lọc';
         break;
@@ -137,14 +107,14 @@ class DeviceDetailPage extends StatelessWidget {
         trangthai = 'Không hoạt động';
         break;
     }
+    final device = controller.deviceModel.value;
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
-      onTap: () {
-      },
+      onTap: () {},
       child: Container(
         padding: const EdgeInsets.all(16),
         child: PhysicalModel(
-          color: Colors.white,
+          color: globalController.colorBackground.value,
           elevation: 5,
           shadowColor: Colors.blue,
           borderRadius: BorderRadius.circular(20),
@@ -152,14 +122,17 @@ class DeviceDetailPage extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             child: Column(
               children: [
-                deviceInfoItem('Tình trạng cảm biến: ', trangthai, Colors.green),
-                deviceInfoItem('Tên cảm biến: ',
-                   '', Colors.black),
                 deviceInfoItem(
-                    'Điện áp: ', '', Colors.black),
-                deviceInfoItem('Ngày kích hoạt ',
-                    '', Colors.red),
-                deviceInfoItem('Thời gian bảo hành ', '3 năm', Colors.red),
+                    'Tình trạng cảm biến: ', trangthai, Colors.green),
+                deviceInfoItem('Mã thiết bị: ',
+                    device.deviceId, Colors.black),
+                deviceInfoItem(
+                    'Mã trạm: ', device.stationId, Colors.black),
+                deviceInfoItem('Vị trí: ',
+                    device.location, Colors.red),
+                deviceInfoItem('Ngưỡng 1: ', device.threshold1, Colors.red),
+                deviceInfoItem('Ngưỡng 2: ', device.threshold2, Colors.red),
+                deviceInfoItem('Ngưỡng 3: ', device.threshold3, Colors.red),
               ],
             ),
           ),
@@ -174,17 +147,8 @@ class DeviceDetailPage extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label, textAlign: TextAlign.left),
-          // FittedBox(
-          //   fit: BoxFit.contain,
-          //   child: Text(content,
-          //       textAlign: TextAlign.right,
-          //       style: TextStyle(
-          //         fontSize: 16,
-          //         color: color,
-          //         fontWeight: FontWeight.bold,
-          //       )),
-          // )
+          Text(label, textAlign: TextAlign.left, style: TextStyle(color: globalController.colorText.value,),),
+          Text(content, textAlign: TextAlign.right, style: TextStyle(color: globalController.colorText.value,),),
         ],
       ),
     );
@@ -198,7 +162,7 @@ class DeviceDetailPage extends StatelessWidget {
         children: const [
           Text('Nồng độ ozone',
               style: TextStyle(fontSize: 16)),
-          Text( '20',
+          Text('20',
               style: TextStyle(
                   fontSize: 45,
                   color: Colors.blue,

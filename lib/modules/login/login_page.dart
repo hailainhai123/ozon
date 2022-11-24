@@ -5,10 +5,12 @@ import 'package:ozon/model/admin_model.dart';
 import 'package:ozon/model/user_model.dart';
 import 'package:ozon/modules/login/login_controller.dart';
 import 'package:ozon/utils/global_controller.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sign_in_button/sign_in_button.dart';
 
 import '../../constant/routes.dart';
 import '../../constant/styles.dart';
+import '../../mqtt/constants.dart';
 import '../../utils/colors.dart';
 import '../../utils/icons.dart';
 import '../../widget_custom/app_input.dart';
@@ -97,9 +99,12 @@ class _LoginPageState extends State<LoginPage> {
         );
         await controller.login(userModel);
         if (controller.success.value) {
+          Get.snackbar('Thông báo', 'Đăng nhập thành công',
+              snackPosition: SnackPosition.TOP);
           Get.toNamed(kRouteIndex);
         } else {
-          Get.snackbar('Lỗi', 'Lỗi hệ thống, xin vui lòng thử lại sau!');
+          Get.snackbar('Thông báo', 'Đăng nhập thất bại',
+              snackPosition: SnackPosition.TOP, colorText: Colors.red);
         }
       },
       child: Container(
