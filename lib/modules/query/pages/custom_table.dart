@@ -211,7 +211,7 @@ class _CustomTableState extends State<CustomTable> {
           itemCount: homeController.listDevice.length,
           itemBuilder: (context, index) {
             final device = homeController.listDevice[index];
-            final nguongCanhBao = device.ozone;
+            final nguongCanhBao = device.ozone ?? 10;
             if (nguongCanhBao >= 15) {
               homeController.color.value = Colors.red;
             } else if (10 <= nguongCanhBao && nguongCanhBao < 15) {
@@ -232,10 +232,10 @@ class _CustomTableState extends State<CustomTable> {
                   defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                   children: [
                     buildRow([
-                      device.name,
-                      device.deviceId,
+                      device.name ?? '',
+                      device.deviceId ?? '',
                       device.ozone.toString(),
-                      device.time,
+                      device.time ?? '',
                     ],
                       colorText: homeController.color.value,
                     ),

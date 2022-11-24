@@ -31,24 +31,6 @@ class DeviceController extends GetxController {
     }
   }
 
-  Future<bool> registerDevice() async {
-    DeviceModel deviceModel = DeviceModel(
-      stationIdController.text,
-      adminIdController.text,
-      nameController.text,
-      descriptionController.text,
-      locationController.text,
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      0,
-    );
-    return await ApiDioController.registerDevice(deviceModel);
-  }
-
   @override
   void dispose() async {
     nameController.dispose();

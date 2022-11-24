@@ -18,6 +18,7 @@ class DeviceDetailPage extends GetView<DeviceDetailController> {
   @override
   Widget build(BuildContext context) {
     controller.deviceName.value = Get.parameters['deviceName'] ?? "";
+    controller.deviceModel.value.name = Get.parameters['name'] ?? "";
     controller.deviceModel.value.deviceId = Get.parameters['deviceId'] ?? "";
     controller.deviceModel.value.stationId = Get.parameters['stationId'] ?? "";
     controller.deviceModel.value.location = Get.parameters['location'] ?? "";
@@ -27,7 +28,7 @@ class DeviceDetailPage extends GetView<DeviceDetailController> {
     return Obx(() {
       return Scaffold(
         appBar: CustomAppBar(
-          title: controller.deviceName.value,
+          title: controller.deviceModel.value.name,
           actionIcon: const Text('Sửa', style: TextStyle(color: Colors.black),),
           actionFunc: (){
             Get.toNamed(kEditDevicePage);
@@ -125,14 +126,14 @@ class DeviceDetailPage extends GetView<DeviceDetailController> {
                 deviceInfoItem(
                     'Tình trạng cảm biến: ', trangthai, Colors.green),
                 deviceInfoItem('Mã thiết bị: ',
-                    device.deviceId, Colors.black),
+                    device.deviceId ?? '', Colors.black),
                 deviceInfoItem(
-                    'Mã trạm: ', device.stationId, Colors.black),
+                    'Mã trạm: ', device.stationId ?? '', Colors.black),
                 deviceInfoItem('Vị trí: ',
-                    device.location, Colors.red),
-                deviceInfoItem('Ngưỡng 1: ', device.threshold1, Colors.red),
-                deviceInfoItem('Ngưỡng 2: ', device.threshold2, Colors.red),
-                deviceInfoItem('Ngưỡng 3: ', device.threshold3, Colors.red),
+                    device.location ?? '', Colors.red),
+                deviceInfoItem('Ngưỡng 1: ', device.threshold1 ?? '', Colors.red),
+                deviceInfoItem('Ngưỡng 2: ', device.threshold2 ?? '', Colors.red),
+                deviceInfoItem('Ngưỡng 3: ', device.threshold3 ?? '', Colors.red),
               ],
             ),
           ),

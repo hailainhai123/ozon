@@ -108,7 +108,7 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
       var list = await ApiDioController.getDeviceForIdStation(idStation);
       listDevice.addAll(list);
       for (var element in listDevice) {
-        listIdDevice.add(element.deviceId);
+        listIdDevice.add(element.deviceId ?? '');
         idDevice.value = listIdDevice.first;
       }
     } catch (e) {
@@ -123,7 +123,7 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
       var list = await ApiDioController.queryStation(idStation, time);
       listDevice.addAll(list);
       for (var element in listDevice) {
-        listIdDevice.add(element.deviceId);
+        listIdDevice.add(element.deviceId ?? '');
         idDevice.value = listIdDevice.first;
       }
     } catch (e) {

@@ -6,20 +6,8 @@ import '../../mqtt/mqttClientWrapper.dart';
 
 class DeviceDetailController extends GetxController {
   var deviceName = ''.obs;
-  var deviceModel = DeviceModel(
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    0,
-  ).obs;
+  var deviceModel = DeviceModel().obs;
+  var updateSuccess = false.obs;
   late MQTTClientWrapper mqttClientWrapper;
 
   // late MQTTBrowserWrapper mqttBrowserWrapper;
@@ -45,30 +33,27 @@ class DeviceDetailController extends GetxController {
   Future updateDevice(DeviceModel device) async {
     try {
       final success = await ApiDioController.updateDevice(device);
-      if (success) {
-        Get.back();
-      } else {
-        return;
-      }
+      // updateSuccess.value = success;
+      deviceModel.value.name = success.name;
     } catch (e) {
       print(e);
     }
   }
 
   void onChangeDevicelName(String text) {
-    deviceModel.value.name = text.trim();
+    deviceModel.value.name = text;
   }
 
   void onChangeThreshold1(String text) {
-    deviceModel.value.threshold1 = text.trim();
+    deviceModel.value.threshold1 = text;
   }
 
   void onChangeThreshold2(String text) {
-    deviceModel.value.threshold2 = text.trim();
+    deviceModel.value.threshold2 = text;
   }
 
   void onChangeThreshold3(String text) {
-    deviceModel.value.threshold3 = text.trim();
+    deviceModel.value.threshold3 = text;
   }
 
 }

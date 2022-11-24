@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:ozon/modules/device/device_page.dart';
-import 'package:ozon/modules/device/widget/add_device_page.dart';
 import 'package:ozon/modules/device_detail/device_detail_page.dart';
 import 'package:ozon/modules/device_detail/widget/edit_device_page.dart';
 import 'package:ozon/modules/query/pages/custom_table.dart';
@@ -74,11 +73,6 @@ final addStationPage = GetPage(
     page: () => AddStationPage(),
     bindings: [StationBinding()]);
 
-final addDevicePage = GetPage(
-    name: kAddDevicePage,
-    page: () => AddDevicePage(),
-    bindings: [DeviceBinding()]);
-
 final registerPage = GetPage(
     name: kRegisterPage,
     page: () => const RegisterPage(),
@@ -99,6 +93,5 @@ final List<GetPage> pages = [
   editDevicePage,
   loginPage,
 addStationPage,
-addDevicePage,
   registerPage,
 ];

@@ -50,7 +50,7 @@ class LoginController extends GetxController {
         await prefs.setBool(Constants.signedIn, true);
         await prefs.setString(Constants.user, userModelRespone.user ?? 'admin');
         await prefs.setString(Constants.pass, userModelRespone.pass ?? 'admin');
-        await prefs.setString(Constants.nameUser, userModelRespone.name  ?? 'admin');
+        await prefs.setString(Constants.nameUser, userModelRespone.user  ?? 'admin');
         await prefs.setString(Constants.address, userModelRespone.address ?? 'Hà Nội');
         await prefs.setString(Constants.phone, userModelRespone.phone ?? '01234567899');
         await prefs.setString(Constants.birthDate, userModelRespone.birthDate ?? '01/01/1991');

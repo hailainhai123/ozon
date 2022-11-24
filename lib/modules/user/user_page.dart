@@ -10,6 +10,7 @@ import 'package:ozon/modules/user/user_controller.dart';
 import 'package:ozon/utils/global_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../model/user_model.dart';
 import '../../mqtt/constants.dart';
 import '../../widget_custom/app_bar.dart';
 
@@ -29,15 +30,20 @@ class _UserPageState extends State<UserPage> {
 
   void getInformationUser() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    controller.ten.value = prefs.getString(Constants.user) ?? 'Admin';
-    controller.userName.value = prefs.getString(Constants.nameUser) ?? 'adminTest';
-    controller.diaChi.value = prefs.getString(Constants.address) ?? 'Ha Noi';
-    controller.sdt.value = prefs.getString(Constants.phone) ?? '0123456789';
-
-    print('haiabcd ${controller.ten.value}');
-    print('haiabcd ${controller.userName.value}');
-    print('haiabcd ${controller.diaChi.value}');
-    print('haiabcd ${controller.sdt.value}');
+    controller.userName.value = prefs.getString(Constants.user) ?? 'admin';
+    controller.password.value = prefs.getString(Constants.pass) ?? 'admin';
+    var userModel = UserModel(
+      user: controller.userName.value,
+      pass: controller.password.value,
+      adminId: '',
+      playerId: '',
+      birthDate: '',
+      address: '',
+      phone: '',
+      name: '',
+      passmoi: '',
+    );
+    await controller.getInfoUser(userModel);
   }
 
   @override
@@ -197,14 +203,14 @@ class _UserPageState extends State<UserPage> {
         },
         child: Row(
           children: [
-            CircleAvatar(
-                backgroundColor: Colors.brown.shade800,
-                minRadius: 40,
-                child: Text(
-                  controller.ten.value[0].toUpperCase(),
-                  style: const TextStyle(
-                      fontSize: 30, fontWeight: FontWeight.bold),
-                )),
+            // CircleAvatar(
+            //     backgroundColor: Colors.brown.shade800,
+            //     minRadius: 40,
+            //     child: Text(
+            //       controller.ten.value[0].toUpperCase(),
+            //       style: const TextStyle(
+            //           fontSize: 30, fontWeight: FontWeight.bold),
+            //     )),
             const SizedBox(
               width: 16.0,
             ),

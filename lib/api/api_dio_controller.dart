@@ -110,11 +110,10 @@ class ApiDioController {
       //     Get.find<GlobalController>().accessToken.value;
 
       Response<Map<String, dynamic>> response = await dio.put(url, data: body);
-
       CustomLog.log(response.data);
 
       if (response.statusCode == 200) {
-        if (response.data!['message']) {
+        if (response.data!['message'] == 'success') {
           return asModel(response.data!);
         }
       } else if (response.statusCode == 403) {
@@ -282,25 +281,30 @@ class ApiDioController {
           print(user);
         } else {
           Get.snackbar('Thông báo', 'Đăng nhập thất bại',
-              snackPosition: SnackPosition.TOP);        }
-
+              snackPosition: SnackPosition.TOP);
+        }
       },
     );
     return user;
   }
 
-  static Future<UserModel> getAdmin() async {
+  static Future<UserModel> getAdmin(UserModel userModel) async {
     Dio dio = Dio(options);
 
-    List<UserModel> adminModels = [];
     UserModel user = UserModel();
+    List<UserModel> listUser = [];
     await postMethods(
       url: ApiURL.getAdmin,
       dio: dio,
+      body: userModel.toJson(),
       asModel: (map) {
-        final responseList = map as List;
-        adminModels = responseList.map((e) => UserModel.fromJson(e)).toList();
-        user = adminModels[0];
+        final message = map['message'] as String;
+        if (message == 'success') {
+          final responseList = map['data'] as List;
+          listUser = responseList.map((e) => UserModel.fromJson(e)).toList();
+          user = listUser[0];
+          print(user);
+        }
       },
     );
     return user;
@@ -476,10 +480,12 @@ class ApiDioController {
     return registerDeviceStatus;
   }
 
-  static Future<bool> updateDevice(DeviceModel deviceModel) async {
+  static Future<DeviceModel> updateDevice(DeviceModel deviceModel) async {
     Dio dio = Dio(options);
 
     bool updateDeviceStatus = false;
+    List<DeviceModel> listDevice = [];
+    DeviceModel device = DeviceModel();
     await putMethods(
       url: ApiURL.updateDevice,
       dio: dio,
@@ -487,14 +493,15 @@ class ApiDioController {
       asModel: (map) {
         if (map['message'] == 'success' || map['message'] == 'true') {
           updateDeviceStatus = true;
-          Get.snackbar('Thông báo', 'Cập nhật thiết bị thành công');
         } else {
-          Get.snackbar('Thông báo', 'Cập nhật thiết bị thất bại');
           updateDeviceStatus = false;
         }
+        final responseList = map as List;
+        listDevice = responseList.map((e) => DeviceModel.fromJson(e)).toList();
+        device = listDevice[0];
       },
     );
-    return updateDeviceStatus;
+    return device;
   }
 
   static Future<List<DeviceModel>> deleteDevice(DeviceModel deviceModel) async {

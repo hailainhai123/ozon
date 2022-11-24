@@ -76,13 +76,14 @@ class _DevicePageState extends State<DevicePage> {
     return GestureDetector(
       onTap: () {
         Get.toNamed(kDeviceDetailPage, parameters: {
-          "deviceName": deviceModel.name,
-          "deviceId": deviceModel.deviceId,
-          "stationId": deviceModel.stationId,
-          "location": deviceModel.location,
-          "threshold1": deviceModel.threshold1,
-          "threshold2": deviceModel.threshold2,
-          "threshold3": deviceModel.threshold3,
+          "deviceName": deviceModel.name!,
+          "name": deviceModel.name!,
+          "deviceId": deviceModel.deviceId!,
+          "stationId": deviceModel.stationId!,
+          "location": deviceModel.location!,
+          "threshold1": deviceModel.threshold1!,
+          "threshold2": deviceModel.threshold2!,
+          "threshold3": deviceModel.threshold3!,
         });
       },
       behavior: HitTestBehavior.translucent,
@@ -98,7 +99,7 @@ class _DevicePageState extends State<DevicePage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
-                deviceModel.name,
+                deviceModel.name ?? '',
                 style: TextStyle(
                   color: globalController.colorText.value,
                 ),
