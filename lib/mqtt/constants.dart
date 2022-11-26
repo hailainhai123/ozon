@@ -73,12 +73,10 @@ class Constants {
   }
 
   /// e.t.c.
-  static String nameUser = "";
-  static String phone = "";
-  static String address = "";
-  static String birthDate = "";
-  static String pass = "";
-  static String user = "Admin";
+  static String playerId = "playerId";
+  static String userId = "userId";
+  static String pass = "pass";
+  static String user = "user";
   static String signedIn = "signedIn";
 }
 

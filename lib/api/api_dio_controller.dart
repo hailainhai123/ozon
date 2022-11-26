@@ -4,9 +4,11 @@ import 'package:ozon/model/admin_model.dart';
 import 'package:ozon/model/device_model.dart';
 import 'package:ozon/model/station_model.dart';
 import 'package:ozon/model/user_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constant/api_url.dart';
 import '../constant/routes.dart';
+import '../mqtt/constants.dart';
 import 'custom_log.dart';
 
 const int kDefaultTimeOut = 60 * 1000;
@@ -223,14 +225,14 @@ class ApiDioController {
     return listDevice;
   }
 
-  static Future<List<DeviceModel>> queryStation(String idStation, String time) async {
+  static Future<List<DeviceModel>> queryStation(String idStation, String time, String nguong) async {
     Dio dio = Dio(options);
 
     List<DeviceModel> listDevice = [];
     await postMethods(
       url: ApiURL.queryStation,
       dio: dio,
-      body: {"stationId" : idStation, "day" : time},
+      body: {"stationId" : idStation, "day" : time, 'nguong' : nguong},
       asModel: (map) {
         if (map['data'] != null) {
           final responseList = map['data'] as List;
@@ -239,6 +241,24 @@ class ApiDioController {
       },
     );
     Get.toNamed(kCustomTablePage);
+    return listDevice;
+  }
+
+  static Future<List<DeviceModel>> queryDetail(String idDevice, String time,) async {
+    Dio dio = Dio(options);
+
+    List<DeviceModel> listDevice = [];
+    await postMethods(
+      url: ApiURL.queryChiTiet,
+      dio: dio,
+      body: {"deviceId" : idDevice, "day" : time,},
+      asModel: (map) {
+        if (map['data'] != null) {
+          final responseList = map['data'] as List;
+          listDevice = responseList.map((e) => DeviceModel.fromJson(e)).toList();
+        }
+      },
+    );
     return listDevice;
   }
 
@@ -269,7 +289,7 @@ class ApiDioController {
     UserModel user = UserModel();
     List<UserModel> listUser = [];
     await postMethods(
-      url: ApiURL.loginAdmin,
+      url: ApiURL.loginUser,
       dio: dio,
       body: userModel.toJson(),
       asModel: (map) {
@@ -294,7 +314,7 @@ class ApiDioController {
     UserModel user = UserModel();
     List<UserModel> listUser = [];
     await postMethods(
-      url: ApiURL.getAdmin,
+      url: ApiURL.getUser,
       dio: dio,
       body: userModel.toJson(),
       asModel: (map) {
@@ -410,14 +430,18 @@ class ApiDioController {
   }
 
   static Future<List<StationModel>> getAllStation() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    UserModel userModel = UserModel();
+    userModel.userId = await prefs.getString(Constants.userId);
     Dio dio = Dio(options);
 
     List<StationModel> stations = [];
-    await getData<List<StationModel>>(
+    await postMethods(
       url: ApiURL.getAllStation,
       dio: dio,
+      body: userModel.toJson(),
       asModel: (map) {
-        final responseList = map as List;
+        final responseList = map['data'] as List;
         stations = responseList.map((e) => StationModel.fromJson(e)).toList();
       },
     );

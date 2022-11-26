@@ -30,8 +30,8 @@ class _UserPageState extends State<UserPage> {
 
   void getInformationUser() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    controller.userName.value = prefs.getString(Constants.user) ?? 'admin';
-    controller.password.value = prefs.getString(Constants.pass) ?? 'admin';
+    controller.userName.value = await prefs.getString(Constants.user) ?? 'user';
+    controller.password.value = await prefs.getString(Constants.pass) ?? 'user';
     var userModel = UserModel(
       user: controller.userName.value,
       pass: controller.password.value,
@@ -203,14 +203,14 @@ class _UserPageState extends State<UserPage> {
         },
         child: Row(
           children: [
-            // CircleAvatar(
-            //     backgroundColor: Colors.brown.shade800,
-            //     minRadius: 40,
-            //     child: Text(
-            //       controller.ten.value[0].toUpperCase(),
-            //       style: const TextStyle(
-            //           fontSize: 30, fontWeight: FontWeight.bold),
-            //     )),
+            CircleAvatar(
+                backgroundColor: Colors.brown.shade800,
+                minRadius: 40,
+                child: Text(
+                  controller.ten.value[0].toUpperCase(),
+                  style: const TextStyle(
+                      fontSize: 30, fontWeight: FontWeight.bold),
+                )),
             const SizedBox(
               width: 16.0,
             ),

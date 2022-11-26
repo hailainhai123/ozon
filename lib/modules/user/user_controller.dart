@@ -1,13 +1,11 @@
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../api/api_dio_controller.dart';
 import '../../model/user_model.dart';
-import '../../mqtt/constants.dart';
 
 class UserController extends GetxController {
 
-  var ten = ''.obs;
+  var ten = 'Khanh'.obs;
   var userName = ''.obs;
   var password = ''.obs;
   var diaChi = ''.obs;
@@ -22,7 +20,11 @@ class UserController extends GetxController {
 
   Future<void> getInfoUser(UserModel userModel) async {
     try {
-      await ApiDioController.getAdmin(userModel);
+      final user = await ApiDioController.getAdmin(userModel);
+      ten.value = user.name ?? 'Khanh';
+      sdt.value = user.phone ?? "1234561";
+      diaChi.value = user.address ?? "Hà Nội";
+      birthDate.value = user.birthDate ?? '11/26/2021';
     } catch (e) {
       print(e);
     }

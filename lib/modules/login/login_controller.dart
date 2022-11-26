@@ -40,26 +40,18 @@ class LoginController extends GetxController {
 
   Future<void> login(UserModel userModel) async {
     try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      userModel.playerId = await prefs.getString(Constants.playerId);
       var userModelRespone =  await ApiDioController.login(userModel);
       if (userModelRespone.user == null) {
         success.value = false;
       } else {
         user.value = userModelRespone;
         success.value = true;
-        final SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setBool(Constants.signedIn, true);
-        await prefs.setString(Constants.user, userModelRespone.user ?? 'admin');
-        await prefs.setString(Constants.pass, userModelRespone.pass ?? 'admin');
-        await prefs.setString(Constants.nameUser, userModelRespone.user  ?? 'admin');
-        await prefs.setString(Constants.address, userModelRespone.address ?? 'Hà Nội');
-        await prefs.setString(Constants.phone, userModelRespone.phone ?? '01234567899');
-        await prefs.setString(Constants.birthDate, userModelRespone.birthDate ?? '01/01/1991');
-        print('haiabc user ${userModelRespone.user}');
-        print('haiabc name ${userModelRespone.name}');
-        print('haiabc address ${userModelRespone.address}');
-        print('haiabc phone ${userModelRespone.phone}');
-        print('haiabc birthDate ${        await prefs.setString(Constants.birthDate, userModelRespone.birthDate ?? '01/01/1991')
-            }');
+        prefs.setBool(Constants.signedIn, true);
+        prefs.setString(Constants.user, userModelRespone.user ?? 'user');
+        prefs.setString(Constants.pass, userModelRespone.pass ?? 'user');
+        prefs.setString(Constants.userId, userModelRespone.userId ?? 'user');
         globalController.colorBackground.value = Colors.white;
         globalController.colorText.value = Colors.black;
       }

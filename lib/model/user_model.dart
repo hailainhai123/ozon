@@ -1,4 +1,5 @@
 class UserModel {
+  String? userId;
   String? user;
   String? pass;
   String? passmoi;
@@ -23,6 +24,7 @@ class UserModel {
 
   UserModel.fromJson(Map<String, dynamic> json)
       : user = json['user'] ?? '',
+        userId = json['_id'] ?? '',
         pass = json['pass'] ?? '',
         passmoi = json['passmoi'] ?? '',
         name = json['name'] ?? '',
@@ -34,13 +36,14 @@ class UserModel {
 
   Map<String, dynamic> toJson() => {
         'user': user,
+        'userId': userId,
         'pass': pass,
         'passmoi': passmoi,
         'name': name,
         'phone': phone,
         'address': address,
-        'birthDate': birthDate,
-        'playerId': playerId,
-        'adminId': adminId,
+        'birthdate': birthDate,
+        'playerid': playerId,
+        'adminid': adminId,
       };
 }

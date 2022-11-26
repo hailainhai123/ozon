@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:ozon/api/api_dio_controller.dart';
 import 'package:ozon/model/device_model.dart';
@@ -26,6 +28,8 @@ class DeviceDetailController extends GetxController {
       print('Connect success!');
     }, (message) {
       mqttMessage.value = message;
+      final device = DeviceModel.fromJson(jsonDecode(message));
+      deviceModel.value = device;
     });
     mqttClientWrapper.prepareMqttClient('deviceId');
   }

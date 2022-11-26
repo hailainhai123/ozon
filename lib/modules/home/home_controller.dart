@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ozon/model/device_model.dart';
 import 'package:ozon/model/station_model.dart';
+import 'package:ozon/model/user_model.dart';
 
 import '../../api/api_dio_controller.dart';
 import '../bottom_app_bar/navigation_controller.dart';
@@ -18,12 +19,14 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
   var listStation = <StationModel>[].obs;
   var listIdStation = <String>[].obs;
   var listDevice = <DeviceModel>[].obs;
+  var listDeviceQuery = <DeviceModel>[].obs;
   var listIdDevice = <String>[].obs;
   var idStation = ''.obs;
   var idDevice = ''.obs;
   var nameDevice = ''.obs;
   var nameStation = ''.obs;
   var color = Colors.black.obs;
+  var userModel = UserModel().obs;
 
   @override
   void onInit() {
@@ -116,16 +119,26 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
     }
   }
 
-  Future<void> queryStation(String idStation, String time) async {
+  Future<void> queryStation(String idStation, String time, String nguong) async {
     listDevice.clear();
     listIdDevice.clear();
     try {
-      var list = await ApiDioController.queryStation(idStation, time);
+      var list = await ApiDioController.queryStation(idStation, time, nguong);
       listDevice.addAll(list);
       for (var element in listDevice) {
         listIdDevice.add(element.deviceId ?? '');
         idDevice.value = listIdDevice.first;
       }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> queryDetail(String idDevice, String time,) async {
+    listDeviceQuery.clear();
+    try {
+      var list = await ApiDioController.queryDetail(idDevice, time,);
+      listDeviceQuery.addAll(list);
     } catch (e) {
       print(e);
     }

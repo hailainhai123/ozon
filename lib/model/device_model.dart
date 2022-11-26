@@ -10,6 +10,7 @@ class DeviceModel {
   String? threshold3;
   String? status;
   String? time;
+  int? soLanVuot;
   int? ozone;
 
   DeviceModel({
@@ -24,6 +25,7 @@ class DeviceModel {
     this.threshold3,
     this.status,
     this.time,
+    this.soLanVuot,
     this.ozone,
   });
 
@@ -39,6 +41,7 @@ class DeviceModel {
         threshold3 = json['threshold3'] ?? "15",
         status = json['status'] ?? "",
         time = json['time'] ?? "",
+        soLanVuot = json['solanvuot'] ?? 5,
         ozone = json['ozone'] ?? 5;
 
   Map<String, dynamic> toJson() => {

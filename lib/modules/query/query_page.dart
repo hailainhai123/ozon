@@ -35,6 +35,7 @@ class QueryPage extends GetView<QueryController> {
               ),
               dropDownMaTram(),
               dropDownThoiGian(),
+              dropDownNguong(),
               const SizedBox(
                 height: 8,
               ),
@@ -107,65 +108,6 @@ class QueryPage extends GetView<QueryController> {
     );
   }
 
-  Widget dropDownMaThietBi() {
-    return Container(
-      height: 40,
-      decoration: BoxDecoration(
-        color: globalController.colorBackground.value,
-        borderRadius: BorderRadius.circular(
-          5,
-        ),
-        border: Border.all(
-          color: globalController.colorText.value,
-        ),
-      ),
-      margin: const EdgeInsets.symmetric(
-        horizontal: 32,
-        vertical: 8,
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Expanded(
-            child: Text(
-              'Mã thiết bị: ',
-              style: TextStyle(
-                fontSize: 16,
-                color: globalController.colorText.value,
-              ),
-            ),
-          ),
-          DropdownButtonHideUnderline(
-            child: DropdownButton<String>(
-              hint: const Text("Chọn mã thiết bị "),
-              value: homeController.idDevice.value,
-              dropdownColor: globalController.colorBackground.value,
-              // value: homeController.listIdStation.first,
-              isDense: true,
-              onChanged: (newValue) {
-                homeController.idDevice.value = newValue ?? '';
-              },
-              items: homeController.listIdDevice
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(
-                    value,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: globalController.colorText.value,
-                    ),
-                  ),
-                );
-              }).toList(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget dropDownThoiGian() {
     return Container(
       height: 40,
@@ -219,6 +161,59 @@ class QueryPage extends GetView<QueryController> {
     );
   }
 
+  Widget dropDownNguong() {
+    return Container(
+      height: 40,
+      decoration: BoxDecoration(
+        color: globalController.colorBackground.value,
+        borderRadius: BorderRadius.circular(
+          5,
+        ),
+        border: Border.all(
+          color: globalController.colorText.value,
+        ),
+      ),
+      margin: const EdgeInsets.symmetric(
+        horizontal: 32,
+        vertical: 8,
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Expanded(
+            child: Text(
+              'Ngưỡng: ',
+              style: TextStyle(fontSize: 16, color: globalController.colorText.value,),
+            ),
+          ),
+          DropdownButtonHideUnderline(
+            child: DropdownButton<String>(
+              hint: const Text(""),
+              value: controller.nguong.value,
+              dropdownColor: globalController.colorBackground.value,
+              // value: homeController.listIdStation.first,
+              isDense: true,
+              onChanged: (newValue) {
+                controller.nguong.value = newValue ?? '';
+              },
+              items: controller.listNguong
+                  .map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(
+                    value,
+                    style: TextStyle(fontSize: 16,color: globalController.colorText.value,),
+                  ),
+                );
+              }).toList(),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _submitButton(
     String buttonText,
   ) {
@@ -236,7 +231,14 @@ class QueryPage extends GetView<QueryController> {
             homeController.nameStation.value = element.name;
           }
         });
-        homeController.queryStation(homeController.idStation.value, controller.time.value);
+        if (controller.nguong.value == 'Ngưỡng 1') {
+         controller.nguongQuery.value = '5';
+        } else if (controller.nguong.value == 'Ngưỡng 2') {
+          controller.nguongQuery.value = '10';
+        } else {
+          controller.nguongQuery.value = '15';
+        }
+        homeController.queryStation(homeController.idStation.value, controller.time.value, controller.nguongQuery.value);
         // homeController.queryStation('evnStaion2', controller.time.value);
       },
       child: Row(

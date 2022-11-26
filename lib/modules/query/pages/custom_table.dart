@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:ozon/constant/routes.dart';
 import 'package:ozon/modules/home/home_controller.dart';
+import 'package:ozon/modules/query/query_controller.dart';
 import 'package:ozon/widget_custom/app_bar.dart';
 
 import '../../../utils/colors.dart';
@@ -18,6 +19,7 @@ class CustomTable extends StatefulWidget {
 class _CustomTableState extends State<CustomTable> {
 
   final HomeController homeController = Get.find();
+  final QueryController controller = Get.find();
 
   @override
   void initState() {
@@ -47,7 +49,7 @@ class _CustomTableState extends State<CustomTable> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: Text(homeController.nameStation.value, style: const TextStyle(color: Colors.black),),
+          title: Text('Thống kê ${homeController.nameStation.value}', style: const TextStyle(color: Colors.black),),
           centerTitle: true,
           leading: TouchableOpacity(
             onTap: () {
@@ -71,7 +73,7 @@ class _CustomTableState extends State<CustomTable> {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
-                buildTableNote(),
+                // buildTableNote(),
                 const SizedBox(
                   height: 8.0,
                 ),
@@ -81,100 +83,6 @@ class _CustomTableState extends State<CustomTable> {
           ),
         ),
       ),
-    );
-    ;
-  }
-
-  Widget buildTableNote() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          "Chú thích:",
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(
-          width: 8.0,
-        ),
-        Directionality(
-          textDirection: TextDirection.ltr,
-          child: Table(
-            border: TableBorder.all(),
-            columnWidths: const <int, TableColumnWidth>{
-              0: FixedColumnWidth(150),
-              1: FixedColumnWidth(150),
-              2: FixedColumnWidth(300),
-            },
-            defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-            children: <TableRow>[
-              TableRow(
-                children: <Widget>[
-                  TableCell(
-                    verticalAlignment: TableCellVerticalAlignment.top,
-                    child: Container(
-                      height: 24,
-                      color: Colors.red,
-                    ),
-                  ),
-                  TableCell(
-                    verticalAlignment: TableCellVerticalAlignment.top,
-                    child: Container(
-                      height: 24,
-                      color: Colors.white,
-                      child: const Center(
-                        child: Text('Vượt ngưỡng 3'),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              TableRow(
-                children: <Widget>[
-                  TableCell(
-                    verticalAlignment: TableCellVerticalAlignment.top,
-                    child: Container(
-                      height: 24,
-                      color: Colors.orange,
-                    ),
-                  ),
-                  TableCell(
-                    verticalAlignment: TableCellVerticalAlignment.top,
-                    child: Container(
-                      height: 24,
-                      color: Colors.white,
-                      child: const Center(
-                        child: Text('Vượt ngưỡng 2'),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              TableRow(
-                children: <Widget>[
-                  TableCell(
-                    verticalAlignment: TableCellVerticalAlignment.top,
-                    child: Container(
-                      height: 24,
-                      color: Colors.yellow,
-                    ),
-                  ),
-                  TableCell(
-                    verticalAlignment: TableCellVerticalAlignment.top,
-                    child: Container(
-                      height: 24,
-                      color: Colors.white,
-                      child: const Center(
-                        child: Text('Vượt ngưỡng 1'),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ],
     );
   }
 
@@ -188,10 +96,10 @@ class _CustomTableState extends State<CustomTable> {
             defaultVerticalAlignment: TableCellVerticalAlignment.middle,
             children: [
               buildRow([
+                'STT',
                 'Mã thiết bị',
-                'Tên thiết bị',
-                'Ngưỡng(ppm)',
-                'Thời gian',
+                'Số lần vượt',
+                '',
               ], isHeader: true),
             ],
           ),
@@ -204,14 +112,14 @@ class _CustomTableState extends State<CustomTable> {
   Widget buildList() {
     return Obx(() {
       return SizedBox(
-        height: homeController.listDevice.length * 32,
+        height: (homeController.listDevice.length)  * 36,
         child: ListView.builder(
           physics: const NeverScrollableScrollPhysics(),
           padding: const EdgeInsets.only(top: 0, bottom: 10),
           itemCount: homeController.listDevice.length,
           itemBuilder: (context, index) {
             final device = homeController.listDevice[index];
-            final nguongCanhBao = device.ozone ?? 10;
+            final nguongCanhBao = int.parse(controller.nguongQuery.value);
             if (nguongCanhBao >= 15) {
               homeController.color.value = Colors.red;
             } else if (10 <= nguongCanhBao && nguongCanhBao < 15) {
@@ -222,7 +130,8 @@ class _CustomTableState extends State<CustomTable> {
               homeController.color.value = Colors.white;
             }
             return InkWell(
-              onTap: () {
+              onTap: () async {
+                await homeController.queryDetail(device.deviceId ?? '', controller.time.value);
                 Get.toNamed(kChartPage);
               },
               child: Directionality(
@@ -232,12 +141,12 @@ class _CustomTableState extends State<CustomTable> {
                   defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                   children: [
                     buildRow([
-                      device.name ?? '',
+                      (index + 1).toString(),
                       device.deviceId ?? '',
-                      device.ozone.toString(),
-                      device.time ?? '',
+                      device.soLanVuot.toString(),
+                      'Chi Tiết',
                     ],
-                      colorText: homeController.color.value,
+                      // colorText: homeController.color.value,
                     ),
                   ],
                 ),
@@ -259,7 +168,7 @@ class _CustomTableState extends State<CustomTable> {
     return TableRow(
       children: cells.map((cell) {
         return Container(
-          height: 48,
+          height: 36,
           color: colorText,
           child: Center(
               child: Text(

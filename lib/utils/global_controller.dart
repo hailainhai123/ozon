@@ -35,6 +35,19 @@ class GlobalController extends GetxController {
     OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
     await OneSignal.shared
         .setAppId("15d7af90-30a3-45da-9d0d-94dc37e109ea");
+
+    final status = await OneSignal.shared.getDeviceState();
+    final String? osUserID = status?.userId;
+    // We will update this once he logged in and goes to dashboard.
+    ////updateUserProfile(osUserID);
+    // Store it into shared prefs, So that later we can use it.
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString(Constants.userId, osUserID ?? "");
+
+    // The promptForPushNotificationsWithUserResponse function will show the iOS push notification prompt. We recommend removing the following code and instead using an In-App Message to prompt for notification permission
+    await OneSignal.shared.promptUserForPushNotificationPermission(
+      fallbackToSettings: true,
+    );
   }
 
   Future<void> checkLogin() async {

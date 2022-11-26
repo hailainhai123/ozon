@@ -74,15 +74,15 @@ class ProfilePage extends GetView<UserController> {
                   const SizedBox(
                     height: 15,
                   ),
-                  // CircleAvatar(
-                  //     backgroundColor: globalController.colorBackground.value,
-                  //     minRadius: 40,
-                  //     child: Text(
-                  //       controller.ten.value[0].toUpperCase(),
-                  //       style: TextStyle(
-                  //         color: globalController.colorText.value,
-                  //           fontSize: 30, fontWeight: FontWeight.bold),
-                  //     )),
+                  CircleAvatar(
+                      backgroundColor: globalController.colorBackground.value,
+                      minRadius: 40,
+                      child: Text(
+                        controller.ten.value[0].toUpperCase(),
+                        style: TextStyle(
+                          color: globalController.colorText.value,
+                            fontSize: 30, fontWeight: FontWeight.bold),
+                      )),
                   const SizedBox(
                     height: 15,
                   ),

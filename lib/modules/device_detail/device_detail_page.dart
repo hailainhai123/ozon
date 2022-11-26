@@ -87,27 +87,6 @@ class DeviceDetailPage extends GetView<DeviceDetailController> {
   }
 
   Widget deviceInfo() {
-    String trangthai = '';
-    switch ('0') {
-      case '1':
-        trangthai = 'Lọc';
-        break;
-      case '2':
-        trangthai = 'Xả';
-        break;
-      case '3':
-        trangthai = 'Rửa hóa chất';
-        break;
-      case '4':
-        trangthai = 'Dừng máy';
-        break;
-      case '5':
-        trangthai = 'Mất kết nối';
-        break;
-      default:
-        trangthai = 'Không hoạt động';
-        break;
-    }
     final device = controller.deviceModel.value;
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
@@ -123,8 +102,6 @@ class DeviceDetailPage extends GetView<DeviceDetailController> {
             padding: const EdgeInsets.all(16),
             child: Column(
               children: [
-                deviceInfoItem(
-                    'Tình trạng cảm biến: ', trangthai, Colors.green),
                 deviceInfoItem('Mã thiết bị: ',
                     device.deviceId ?? '', Colors.black),
                 deviceInfoItem(
@@ -156,19 +133,20 @@ class DeviceDetailPage extends GetView<DeviceDetailController> {
   }
 
   Widget centerProgress() {
+    final device = controller.deviceModel.value;
     return Container(
       padding: const EdgeInsets.all(32),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: const [
-          Text('Nồng độ ozone',
+        children: [
+          const Text('Nồng độ ozone',
               style: TextStyle(fontSize: 16)),
-          Text('20',
-              style: TextStyle(
+          Text('${device.ozone ?? 10}',
+              style: const TextStyle(
                   fontSize: 45,
                   color: Colors.blue,
                   fontWeight: FontWeight.bold)),
-          Text('ppm',
+          const Text('ppm',
               style: TextStyle(fontSize: 16)),
         ],
       ),
