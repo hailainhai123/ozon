@@ -75,6 +75,7 @@ class Constants {
   /// e.t.c.
   static String playerId = "playerId";
   static String userId = "userId";
+  static String userIdOneSignal = "userIdOneSignal";
   static String pass = "pass";
   static String user = "user";
   static String signedIn = "signedIn";

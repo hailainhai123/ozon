@@ -11,7 +11,7 @@ class DeviceModel {
   String? status;
   String? time;
   int? soLanVuot;
-  int? ozone;
+  String? ozone;
 
   DeviceModel({
     this.deviceId,
@@ -42,7 +42,7 @@ class DeviceModel {
         status = json['status'] ?? "",
         time = json['time'] ?? "",
         soLanVuot = json['solanvuot'] ?? 5,
-        ozone = json['ozone'] ?? 5;
+        ozone = json['ozone'] ?? "";
 
   Map<String, dynamic> toJson() => {
     'deviceId': deviceId,

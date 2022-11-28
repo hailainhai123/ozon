@@ -15,7 +15,6 @@ import '../modules/query/pages/line_chart_ozon.dart';
 import '../modules/query/query_page.dart';
 import '../modules/register/register_page.dart';
 import '../modules/splash/splash.dart';
-import '../modules/station/add_station_page.dart';
 
 const kSplash = "/splash";
 const kRouteIndex = "/";
@@ -68,10 +67,6 @@ final editDevicePage = GetPage(name: kEditDevicePage, page: () => EditDevicePage
 final loginPage = GetPage(
     name: kLoginPage, page: () => const LoginPage(), binding: LoginBinding());
 
-final addStationPage = GetPage(
-    name: kAddStationPage,
-    page: () => AddStationPage(),
-    bindings: [StationBinding()]);
 
 final registerPage = GetPage(
     name: kRegisterPage,
@@ -92,6 +87,5 @@ final List<GetPage> pages = [
   deviceDetailPage,
   editDevicePage,
   loginPage,
-addStationPage,
   registerPage,
 ];
