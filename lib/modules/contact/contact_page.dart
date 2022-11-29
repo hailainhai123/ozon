@@ -38,7 +38,7 @@ class ContactPage extends StatelessWidget {
                       child: Column(
                         children: [
                           deviceInfoItem(
-                              'Công ty: ', 'EVN HANOI', Colors.green),
+                              'Công ty: ', 'TAWU', Colors.green),
                           deviceInfoItem('Email: ', 'Email', Colors.green),
                           deviceInfoItem(
                               'Số điện thoại: ', '0912345678', Colors.green),

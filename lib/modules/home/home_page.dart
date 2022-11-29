@@ -123,57 +123,55 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: CustomAppBar(
-          title: 'Danh sách trạm',
-          isBack: false,
-        ),
-        body: Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/images/bg_evn.jpeg"),
-              fit: BoxFit.cover,
-            ),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: CustomAppBar(
+        title: 'Danh sách trạm',
+        isBack: false,
+      ),
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/bg_evn.jpeg"),
+            fit: BoxFit.cover,
           ),
-          height: size.height,
-          child: Obx(() {
-            return Column(
-              children: <Widget>[
-                Expanded(
-                    child: ListView.builder(
-                        controller: scrollController,
-                        itemCount: controller.listStation.length,
-                        physics: const BouncingScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          double scale = 1.0;
-                          if (topContainer > 0.5) {
-                            scale = index + 0.5 - topContainer;
-                            if (scale < 0) {
-                              scale = 0;
-                            } else if (scale > 1) {
-                              scale = 1;
-                            }
-                          }
-                          return GestureDetector(
-                            onTap: () {
-                              Get.toNamed(kDevicePage, parameters: {
-                                'idStation':
-                                    controller.listStation[index].stationId
-                              });
-                            },
-                            child: Align(
-                              // heightFactor: 0.7,
-                              alignment: Alignment.topCenter,
-                              child: itemStation(controller.listStation[index]),
-                            ),
-                          );
-                        })),
-              ],
-            );
-          }),
         ),
+        height: size.height,
+        child: Obx(() {
+          return Column(
+            children: <Widget>[
+              Expanded(
+                  child: ListView.builder(
+                      controller: scrollController,
+                      itemCount: controller.listStation.length,
+                      physics: const BouncingScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        double scale = 1.0;
+                        if (topContainer > 0.5) {
+                          scale = index + 0.5 - topContainer;
+                          if (scale < 0) {
+                            scale = 0;
+                          } else if (scale > 1) {
+                            scale = 1;
+                          }
+                        }
+                        return GestureDetector(
+                          onTap: () {
+                            Get.toNamed(kDevicePage, parameters: {
+                              'idStation':
+                                  controller.listStation[index].stationId
+                            });
+                          },
+                          child: Align(
+                            // heightFactor: 0.7,
+                            alignment: Alignment.topCenter,
+                            child: itemStation(controller.listStation[index]),
+                          ),
+                        );
+                      })),
+            ],
+          );
+        }),
       ),
     );
   }

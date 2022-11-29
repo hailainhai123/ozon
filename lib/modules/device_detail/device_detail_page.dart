@@ -14,7 +14,6 @@ class DeviceDetailPage extends GetView<DeviceDetailController> {
 
   final GlobalController globalController = Get.find();
 
-
   @override
   Widget build(BuildContext context) {
     controller.deviceName.value = Get.parameters['deviceName'] ?? "";
@@ -22,15 +21,23 @@ class DeviceDetailPage extends GetView<DeviceDetailController> {
     controller.deviceModel.value.deviceId = Get.parameters['deviceId'] ?? "";
     controller.deviceModel.value.stationId = Get.parameters['stationId'] ?? "";
     controller.deviceModel.value.location = Get.parameters['location'] ?? "";
-    controller.deviceModel.value.threshold1 = Get.parameters['threshold1'] ?? "";
-    controller.deviceModel.value.threshold2 = Get.parameters['threshold2'] ?? "";
-    controller.deviceModel.value.threshold3 = Get.parameters['threshold3'] ?? "";
+    controller.deviceModel.value.threshold1 =
+        Get.parameters['threshold1'] ?? "";
+    controller.deviceModel.value.threshold2 =
+        Get.parameters['threshold2'] ?? "";
+    controller.deviceModel.value.threshold3 =
+        Get.parameters['threshold3'] ?? "";
+    controller.deviceModel.value.ozone =
+        int.parse(Get.parameters['ozone'] ?? "");
     return Obx(() {
       return Scaffold(
         appBar: CustomAppBar(
           title: controller.deviceModel.value.name,
-          actionIcon: const Text('Sửa', style: TextStyle(color: Colors.black),),
-          actionFunc: (){
+          actionIcon: const Text(
+            'Sửa',
+            style: TextStyle(color: Colors.black),
+          ),
+          actionFunc: () {
             Get.toNamed(kEditDevicePage);
           },
         ),
@@ -102,15 +109,17 @@ class DeviceDetailPage extends GetView<DeviceDetailController> {
             padding: const EdgeInsets.all(16),
             child: Column(
               children: [
-                deviceInfoItem('Mã thiết bị: ',
-                    device.deviceId ?? '', Colors.black),
+                deviceInfoItem(
+                    'Mã thiết bị: ', device.deviceId ?? '', Colors.black),
                 deviceInfoItem(
                     'Mã trạm: ', device.stationId ?? '', Colors.black),
-                deviceInfoItem('Vị trí: ',
-                    device.location ?? '', Colors.red),
-                deviceInfoItem('Ngưỡng 1: ', device.threshold1 ?? '', Colors.red),
-                deviceInfoItem('Ngưỡng 2: ', device.threshold2 ?? '', Colors.red),
-                deviceInfoItem('Ngưỡng 3: ', device.threshold3 ?? '', Colors.red),
+                deviceInfoItem('Vị trí: ', device.location ?? '', Colors.red),
+                deviceInfoItem(
+                    'Ngưỡng 1: ', device.threshold1 ?? '', Colors.red),
+                deviceInfoItem(
+                    'Ngưỡng 2: ', device.threshold2 ?? '', Colors.red),
+                deviceInfoItem(
+                    'Ngưỡng 3: ', device.threshold3 ?? '', Colors.red),
               ],
             ),
           ),
@@ -125,8 +134,20 @@ class DeviceDetailPage extends GetView<DeviceDetailController> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label, textAlign: TextAlign.left, style: TextStyle(color: globalController.colorText.value,),),
-          Text(content, textAlign: TextAlign.right, style: TextStyle(color: globalController.colorText.value,),),
+          Text(
+            label,
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              color: globalController.colorText.value,
+            ),
+          ),
+          Text(
+            content,
+            textAlign: TextAlign.right,
+            style: TextStyle(
+              color: globalController.colorText.value,
+            ),
+          ),
         ],
       ),
     );
@@ -134,23 +155,28 @@ class DeviceDetailPage extends GetView<DeviceDetailController> {
 
   Widget centerProgress() {
     final device = controller.deviceModel.value;
+    final ozone = device.ozone ?? 50;
+    if (ozone >= 50) {
+      controller.color.value = Colors.red;
+    } else {
+      controller.color.value = Colors.blue;
+    }
     return Container(
       padding: const EdgeInsets.all(32),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          const Text('Nồng độ ozone',
-              style: TextStyle(fontSize: 16)),
-          Text('${device.ozone ?? 10}',
-              style: const TextStyle(
-                  fontSize: 45,
-                  color: Colors.blue,
-                  fontWeight: FontWeight.bold)),
-          const Text('ppm',
-              style: TextStyle(fontSize: 16)),
+          const Text('Nồng độ ozone', style: TextStyle(fontSize: 16)),
+          Obx(() {
+            return Text('$ozone',
+                style: TextStyle(
+                    fontSize: 45,
+                    color: controller.color.value,
+                    fontWeight: FontWeight.bold));
+          }),
+          const Text('ppb', style: TextStyle(fontSize: 16)),
         ],
       ),
     );
   }
-
 }

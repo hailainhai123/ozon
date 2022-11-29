@@ -22,6 +22,7 @@ class _DevicePageState extends State<DevicePage> {
     // TODO: implement initState
     controller.idStation.value = Get.parameters['idStation'] ?? '';
     controller.getListDevice(controller.idStation.value);
+    controller.initMqtt(controller.idStation.value);
     super.initState();
   }
 
@@ -61,7 +62,8 @@ class _DevicePageState extends State<DevicePage> {
                 ),
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
-                  return buildItem(controller.listDevice[index]);
+                  return buildItem(controller.listDevice[index],
+                      controller.deviceMQTT.value);
                 },
                 itemCount: controller.listDevice.length,
               ),
@@ -72,7 +74,13 @@ class _DevicePageState extends State<DevicePage> {
     );
   }
 
-  Widget buildItem(DeviceModel deviceModel) {
+  Widget buildItem(DeviceModel deviceModel, DeviceModel deviceMQTT) {
+    // if (deviceMQTT.deviceId != null) {
+    //   if (deviceMQTT.deviceId! == deviceModel.deviceId!) {
+    //     print('haiabc');
+    //     deviceModel.ozone = deviceMQTT.ozone;
+    //   }
+    // }
     return GestureDetector(
       onTap: () {
         Get.toNamed(kDeviceDetailPage, parameters: {
@@ -84,40 +92,43 @@ class _DevicePageState extends State<DevicePage> {
           "threshold1": deviceModel.threshold1!,
           "threshold2": deviceModel.threshold2!,
           "threshold3": deviceModel.threshold3!,
+          "ozone": deviceModel.ozone!.toString(),
         });
       },
       behavior: HitTestBehavior.translucent,
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 2),
-        margin: const EdgeInsets.symmetric(vertical: 2, horizontal: 2),
-        child: PhysicalModel(
-          color: globalController.colorBackground.value,
-          elevation: 5,
-          shadowColor: Colors.blue,
-          borderRadius: BorderRadius.circular(20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text(
-                deviceModel.name ?? '',
-                style: TextStyle(
-                  color: globalController.colorText.value,
-                ),
-              ),
-              Text('${deviceModel.ozone}',
-                  style: const TextStyle(
-                      fontSize: 45,
-                      color: Colors.blue,
-                      fontWeight: FontWeight.bold)),
-              Text('ppm',
+      child: Obx(() {
+        return Container(
+          padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 2),
+          margin: const EdgeInsets.symmetric(vertical: 2, horizontal: 2),
+          child: PhysicalModel(
+            color: globalController.colorBackground.value,
+            elevation: 5,
+            shadowColor: Colors.blue,
+            borderRadius: BorderRadius.circular(20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text(
+                  deviceModel.name ?? '',
                   style: TextStyle(
-                    fontSize: 16,
                     color: globalController.colorText.value,
-                  )),
-            ],
+                  ),
+                ),
+                Text('${deviceModel.ozone}',
+                    style: const TextStyle(
+                        fontSize: 45,
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold)),
+                Text('ppb',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: globalController.colorText.value,
+                    )),
+              ],
+            ),
           ),
-        ),
-      ),
+        );
+      }),
     );
   }
 }

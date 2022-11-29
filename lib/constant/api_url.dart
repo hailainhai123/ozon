@@ -13,6 +13,7 @@ class ApiURL {
   static const String updateStation = "/updatetram";
   static const String deleteStation = "/deletetram";
   static const String registerDevice = "/registerdevice";
+
   static const String getDevice = "/getdevice";
   static const String getDeviceForIdStation = "/getdevicetram";
   static const String updateDevice = "/updatedevice";

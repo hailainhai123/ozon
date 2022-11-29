@@ -42,7 +42,7 @@ class GlobalController extends GetxController {
     ////updateUserProfile(osUserID);
     // Store it into shared prefs, So that later we can use it.
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString(Constants.userId, osUserID ?? "");
+    await prefs.setString(Constants.userIdOneSignal, osUserID ?? "");
 
     // The promptForPushNotificationsWithUserResponse function will show the iOS push notification prompt. We recommend removing the following code and instead using an In-App Message to prompt for notification permission
     await OneSignal.shared.promptUserForPushNotificationPermission(
