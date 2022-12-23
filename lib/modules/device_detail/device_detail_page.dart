@@ -29,6 +29,8 @@ class DeviceDetailPage extends GetView<DeviceDetailController> {
         Get.parameters['threshold2'] ?? "";
     controller.deviceModel.value.threshold3 =
         Get.parameters['threshold3'] ?? "";
+    controller.deviceModel.value.ozone =
+        int.parse(Get.parameters['ozone'] ?? "");
     return Obx(() {
       return Scaffold(
         appBar: CustomAppBar(
@@ -155,6 +157,12 @@ class DeviceDetailPage extends GetView<DeviceDetailController> {
 
   Widget centerProgress() {
     final device = controller.deviceModel.value;
+    final ozone = device.ozone ?? 50;
+    if (ozone >= 50) {
+      controller.color.value = Colors.red;
+    } else {
+      controller.color.value = Colors.blue;
+    }
     return Container(
       padding: const EdgeInsets.all(32),
       child: homeController.isOzon.value

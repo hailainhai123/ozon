@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ozon/api/api_dio_controller.dart';
 import 'package:ozon/model/device_model.dart';
@@ -10,6 +11,7 @@ class DeviceDetailController extends GetxController {
   var deviceName = ''.obs;
   var deviceModel = DeviceModel().obs;
   var updateSuccess = false.obs;
+  var color = Colors.blue.obs;
   late MQTTClientWrapper mqttClientWrapper;
 
   // late MQTTBrowserWrapper mqttBrowserWrapper;
@@ -32,6 +34,7 @@ class DeviceDetailController extends GetxController {
       deviceModel.value = device;
     });
     mqttClientWrapper.prepareMqttClient('E1.22');
+    // mqttClientWrapper.prepareMqttClient(deviceModel.value.deviceId!);
   }
 
   Future updateDevice(DeviceModel device) async {
