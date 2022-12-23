@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:ozon/utils/colors.dart';
 import 'package:ozon/utils/global_controller.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
@@ -45,8 +46,8 @@ class NavigationBottomBar extends GetView<NavController> {
             items: icons
                 .asMap().map((i, e) =>
                 MapEntry(i,
-                    SalomonBottomBarItem(title: Text(e.title),
-                        icon: SvgPicture.asset(e.icon, color: i == controller.currentIndex.value ? kPrimaryColor : kAppGreyColor ))
+                    SalomonBottomBarItem(title: Text(e.title, style: const TextStyle(color: AppColors.black),), selectedColor: AppColors.primary,
+                        icon: SvgPicture.asset(e.icon, color: i == controller.currentIndex.value ? AppColors.primary : kAppGreyColor ))
                 )).values.toList()
         ),
       );

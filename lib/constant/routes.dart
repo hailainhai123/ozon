@@ -15,11 +15,12 @@ import '../modules/query/pages/line_chart_ozon.dart';
 import '../modules/query/query_page.dart';
 import '../modules/register/register_page.dart';
 import '../modules/splash/splash.dart';
+import '../modules/station/station_page.dart';
 
 const kSplash = "/splash";
 const kRouteIndex = "/";
 const kHomePage = '/home';
-const kAddStationPage = '/add_station_page';
+const kStationPage = '/ozone_station_page';
 const kAddDevicePage = '/add_device_page';
 const kqueryPage = '/department_page';
 const kCustomTablePage = '/custom_table_page';
@@ -41,6 +42,8 @@ final indexPage = GetPage(
     bindings: [GlobalBinding(), HomeBinding()]);
 
 final homePage = GetPage(name: kHomePage, page: () => HomePage(), bindings: [HomeBinding()]);
+
+final ozoneStationPage = GetPage(name: kStationPage, page: () => const StationPage(), bindings: []);
 
 final queryPage = GetPage(name: kqueryPage, page: () => QueryPage(), bindings: []);
 
@@ -77,6 +80,7 @@ final List<GetPage> pages = [
   splashPage,
   indexPage,
   homePage,
+  ozoneStationPage,
   queryPage,
   tablePage,
   chartPage,

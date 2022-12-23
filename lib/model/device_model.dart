@@ -11,7 +11,8 @@ class DeviceModel {
   String? status;
   String? time;
   int? soLanVuot;
-  String? ozone;
+  int? ozone;
+  int? nhietDo;
 
   DeviceModel({
     this.deviceId,
@@ -27,6 +28,7 @@ class DeviceModel {
     this.time,
     this.soLanVuot,
     this.ozone,
+    this.nhietDo,
   });
 
   DeviceModel.fromJson(Map<String, dynamic> json)
@@ -36,13 +38,15 @@ class DeviceModel {
         name = json['name'] ?? "Thiết bị ozon",
         description = json['description'] ?? "",
         location = json['location'] ?? "Vị trí A",
-        threshold1 = json['threshold1'] ?? "5",
-        threshold2 = json['threshold2'] ?? "10",
-        threshold3 = json['threshold3'] ?? "15",
+        threshold1 = json['threshold1'] ?? "50",
+        threshold2 = json['threshold2'] ?? "100",
+        threshold3 = json['threshold3'] ?? "150",
         status = json['status'] ?? "",
         time = json['time'] ?? "",
         soLanVuot = json['solanvuot'] ?? 5,
-        ozone = json['ozone'] ?? "";
+        ozone = json['ozone'] ?? 5,
+        nhietDo = json['nhietDo'] ?? 20
+  ;
 
   Map<String, dynamic> toJson() => {
     'deviceId': deviceId,

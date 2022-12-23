@@ -27,6 +27,7 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
   var nameStation = ''.obs;
   var color = Colors.black.obs;
   var userModel = UserModel().obs;
+  var isOzon = true.obs;
 
   @override
   void onInit() {
@@ -71,7 +72,7 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
 
   Future<void> initData() async {
     tabController = TabController(length: 4, vsync: this);
-    await getListStation();
+    // await getListStation();
     // await getListDeviceForIdStation(idStation.value);
   }
 
@@ -94,16 +95,19 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
     listStation.clear();
     listIdStation.clear();
     try {
-      var list = await ApiDioController.getAllStation();
-      listStation.addAll(list);
-      for (var element in listStation) {
-        listIdStation.add(element.stationId);
-        idStation.value = listIdStation.first;
-      }
+      if (isOzon.value) {
+        var list = await ApiDioController.getAllStation();
+        listStation.addAll(list);
+        for (var element in listStation) {
+          listIdStation.add(element.stationId);
+          idStation.value = listIdStation.first;
+        }
+      } else {}
     } catch (e) {
       print(e);
     }
   }
+
   Future<void> getListDeviceForIdStation(String idStation) async {
     listDevice.clear();
     listIdDevice.clear();
@@ -119,7 +123,8 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
     }
   }
 
-  Future<void> queryStation(String idStation, String time, String nguong) async {
+  Future<void> queryStation(
+      String idStation, String time, String nguong) async {
     listDevice.clear();
     listIdDevice.clear();
     try {
@@ -134,10 +139,16 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
     }
   }
 
-  Future<void> queryDetail(String idDevice, String time,) async {
+  Future<void> queryDetail(
+    String idDevice,
+    String time,
+  ) async {
     listDeviceQuery.clear();
     try {
-      var list = await ApiDioController.queryDetail(idDevice, time,);
+      var list = await ApiDioController.queryDetail(
+        idDevice,
+        time,
+      );
       listDeviceQuery.addAll(list);
     } catch (e) {
       print(e);

@@ -31,7 +31,7 @@ class DeviceDetailController extends GetxController {
       final device = DeviceModel.fromJson(jsonDecode(message));
       deviceModel.value = device;
     });
-    mqttClientWrapper.prepareMqttClient('deviceId');
+    mqttClientWrapper.prepareMqttClient('E1.22');
   }
 
   Future updateDevice(DeviceModel device) async {

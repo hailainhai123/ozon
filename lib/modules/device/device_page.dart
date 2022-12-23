@@ -5,6 +5,7 @@ import 'package:ozon/utils/global_controller.dart';
 import 'package:ozon/widget_custom/app_bar.dart';
 import '../../constant/routes.dart';
 import '../../model/device_model.dart';
+import '../home/home_controller.dart';
 
 class DevicePage extends StatefulWidget {
   DevicePage({Key? key}) : super(key: key);
@@ -15,6 +16,7 @@ class DevicePage extends StatefulWidget {
 
 class _DevicePageState extends State<DevicePage> {
   final DeviceController controller = Get.find();
+  final HomeController homeController = Get.find();
   final GlobalController globalController = Get.find();
 
   @override
@@ -23,6 +25,13 @@ class _DevicePageState extends State<DevicePage> {
     controller.idStation.value = Get.parameters['idStation'] ?? '';
     controller.getListDevice(controller.idStation.value);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    // Get.delete<DeviceController>();
+    super.dispose();
   }
 
   @override
@@ -104,16 +113,28 @@ class _DevicePageState extends State<DevicePage> {
                   color: globalController.colorText.value,
                 ),
               ),
-              Text('${deviceModel.ozone}',
-                  style: const TextStyle(
-                      fontSize: 45,
-                      color: Colors.blue,
-                      fontWeight: FontWeight.bold)),
-              Text('ppm',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: globalController.colorText.value,
-                  )),
+              homeController.isOzon.value
+                  ? Text('${deviceModel.ozone}',
+                      style: const TextStyle(
+                          fontSize: 45,
+                          color: Colors.blue,
+                          fontWeight: FontWeight.bold))
+                  : Text('${deviceModel.nhietDo}',
+                      style: const TextStyle(
+                          fontSize: 45,
+                          color: Colors.blue,
+                          fontWeight: FontWeight.bold)),
+              homeController.isOzon.value
+                  ? Text('ppb',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: globalController.colorText.value,
+                      ))
+                  : Text('\u2103',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: globalController.colorText.value,
+                      )),
             ],
           ),
         ),
