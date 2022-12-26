@@ -1,12 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:map_launcher/map_launcher.dart';
 import 'package:ozon/utils/global_controller.dart';
-
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import '../../widget_custom/app_bar.dart';
 
 class ContactPage extends StatelessWidget {
   ContactPage({Key? key}) : super(key: key);
   final GlobalController globalController = Get.find();
+
+  String? encodeQueryParameters(Map<String, String> params) {
+    return params.entries
+        .map((MapEntry<String, String> e) =>
+    '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+        .join('&');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,26 +38,170 @@ class ContactPage extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           child: Column(
             children: [
-              Container(
-                child: PhysicalModel(
+              // PhysicalModel(
+              //   color: globalController.colorBackground.value,
+              //   elevation: 5,
+              //   shadowColor: Colors.blue,
+              //   borderRadius: BorderRadius.circular(20),
+              //   child: Padding(
+              //     padding: const EdgeInsets.all(16),
+              //     child: Column(
+              //       children: [
+              //         deviceInfoItem('Công ty: ', 'EVN', Colors.green),
+              //         deviceInfoItem('Email: ', 'evnhanoi@evnhanoi.vn', Colors.green),
+              //         deviceInfoItem(
+              //             'Số điện thoại: ', '0912345678', Colors.green),
+              //         deviceInfoItem('Địa chỉ: ', '69 Đinh Tiên Hoàng, Hoàn Kiếm, Hà Nội', Colors.green),
+              //       ],
+              //     ),
+              //   ),
+              // ),
+              Visibility(
+                visible: true,
+                child: Card(
+                  clipBehavior: Clip.antiAlias,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
                   color: globalController.colorBackground.value,
-                  elevation: 5,
-                  shadowColor: Colors.blue,
-                  borderRadius: BorderRadius.circular(20),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Container(
-                      child: Column(
-                        children: [
-                          deviceInfoItem(
-                              'Công ty: ', 'TAWU', Colors.green),
-                          deviceInfoItem('Email: ', 'Email', Colors.green),
-                          deviceInfoItem(
-                              'Số điện thoại: ', '0912345678', Colors.green),
-                          deviceInfoItem('Địa chỉ: ', 'Hà Nội', Colors.green),
-                        ],
+                  child: ListTile(
+                    leading: const Icon(Icons.home_filled,size: 32,),
+                    title: Text(
+                      'Công ty',
+                      style: TextStyle(
+                        color: globalController.colorText.value,
                       ),
                     ),
+                    subtitle: Text(
+                      'EVN',
+                      style: TextStyle(
+                        color: globalController.colorText.value,
+                      ),
+                    ),
+                    onTap: () {
+
+                    },
+                  ),
+                ),
+              ),
+              Visibility(
+                visible: true,
+                child: Card(
+                  clipBehavior: Clip.antiAlias,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                  color: globalController.colorBackground.value,
+                  child: ListTile(
+                    leading: const Icon(Icons.email, size: 32,),
+                    title: Text(
+                      'Email',
+                      style: TextStyle(
+                        color: globalController.colorText.value,
+                      ),
+                    ),
+                    subtitle: Text(
+                      'evnhanoi@evnhanoi.vn',
+                      style: TextStyle(
+                        color: globalController.colorText.value,
+                      ),
+                    ),
+                    onTap: () {
+                      final Uri emailLaunchUri = Uri(
+                        scheme: 'mailto',
+                        path: 'evnhanoi@evnhanoi.com',
+                        query: encodeQueryParameters(<String, String>{
+                          'subject': 'Tiêu đề',
+                        }),
+                      );
+                      launchUrl(emailLaunchUri);
+                    },
+                  ),
+                ),
+              ),
+              Visibility(
+                visible: true,
+                child: Card(
+                  clipBehavior: Clip.antiAlias,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                  color: globalController.colorBackground.value,
+                  child: ListTile(
+                    leading: const Icon(Icons.call,size: 32,),
+                    title: Text(
+                      'Số điện thoại',
+                      style: TextStyle(
+                        color: globalController.colorText.value,
+                      ),
+                    ),
+                    subtitle: Text(
+                      '0912345678',
+                      style: TextStyle(
+                        color: globalController.colorText.value,
+                      ),
+                    ),
+                    onTap: () async {
+                      await launchUrlString(
+                          'tel://0912345678');
+                    },
+                  ),
+                ),
+              ),
+              Visibility(
+                visible: true,
+                child: Card(
+                  clipBehavior: Clip.antiAlias,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                  color: globalController.colorBackground.value,
+                  child: ListTile(
+                    leading: const Icon(Icons.location_on, size: 32,),
+                    title: Text(
+                      'Địa chỉ',
+                      style: TextStyle(
+                        color: globalController.colorText.value,
+                      ),
+                    ),
+                    subtitle: Text(
+                      '69 Đinh Tiên Hoàng, Hoàn Kiếm, Hà Nội',
+                      style: TextStyle(
+                        color: globalController.colorText.value,
+                      ),
+                    ),
+                    isThreeLine: true,
+                    onTap: () async {
+                      print('open map');
+                      Position position = await Geolocator.getCurrentPosition(
+                          desiredAccuracy: LocationAccuracy.high);
+                      List<Location> locations = [];
+                      try {
+                        locations = await locationFromAddress("69 Đinh Tiên Hoàng, Hoàn Kiếm, Hà Nội");
+                        // locations = await locationFromAddress(controller.addressUnit ?? '');
+                      } catch (e) {
+                        Get.snackbar('Lỗi', 'Lỗi hệ thống, xin vui lòng thử lại sau!');
+                      }
+                      final availableMaps = await MapLauncher.installedMaps;
+                      print(availableMaps);
+                      if (await MapLauncher.isMapAvailable(MapType.google) == true) {
+                      MapLauncher.showDirections(
+                      mapType: MapType.google,
+                      destination:
+                      Coords(locations[0].latitude, locations[0].longitude),
+                      origin: Coords(position.latitude, position.longitude),
+                      originTitle: 'Vị trí hiện tại'
+                      );
+                      } else if (await MapLauncher.isMapAvailable(MapType.apple) == true) {
+                      MapLauncher.showDirections(
+                      mapType: MapType.apple,
+                      destination:
+                      Coords(locations[0].latitude, locations[0].longitude),
+                      origin: Coords(position.latitude, position.longitude),
+                      originTitle: 'Vị trí hiện tại'
+                      );
+                      }
+                    },
                   ),
                 ),
               ),
@@ -60,11 +216,17 @@ class ContactPage extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.all(8),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label, textAlign: TextAlign.left, style: TextStyle(color: globalController.colorText.value,),),
-          FittedBox(
-            fit: BoxFit.contain,
+          Text(
+            label,
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              color: globalController.colorText.value,
+            ),
+          ),
+          SizedBox(
+            width: 250,
             child: Text(content,
                 textAlign: TextAlign.right,
                 style: TextStyle(

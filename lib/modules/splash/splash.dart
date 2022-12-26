@@ -16,6 +16,11 @@ class _SplashPageState extends State<SplashPage> {
   final globalController = Get.put(GlobalController(), permanent: true);
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SafeArea(child: Column(
       children: [
