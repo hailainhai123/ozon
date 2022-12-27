@@ -87,6 +87,7 @@ class GlobalController extends GetxController {
   }
 
   Future<void> checkLogin() async {
+    print('checklogin');
     await Future.delayed(const Duration(seconds: 2));
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final signIn = prefs.getBool(Constants.signedIn) ?? false;
