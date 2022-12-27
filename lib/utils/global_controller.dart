@@ -93,7 +93,6 @@ class GlobalController extends GetxController {
     if (signIn) {
       Get.toNamed(kRouteIndex);
     } else {
-      // Get.toNamed(kContactPage);
       Get.toNamed(kLoginPage);
     }
   }
