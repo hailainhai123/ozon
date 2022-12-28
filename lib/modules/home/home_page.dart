@@ -1,13 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:ozon/constant/routes.dart';
-import 'package:ozon/model/station_model.dart';
 import 'package:ozon/utils/global_controller.dart';
-
-import '../../utils/colors.dart';
-import '../../utils/icons.dart';
 import '../../widget_custom/app_bar.dart';
 import 'home_controller.dart';
 
