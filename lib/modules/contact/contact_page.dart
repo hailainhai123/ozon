@@ -15,8 +15,45 @@ class ContactPage extends StatelessWidget {
   String? encodeQueryParameters(Map<String, String> params) {
     return params.entries
         .map((MapEntry<String, String> e) =>
-    '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+            '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
         .join('&');
+  }
+
+  Future<Position> _determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      // Location services are not enabled don't continue
+      // accessing the position and request users of the
+      // App to enable the location services.
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        // Permissions are denied, next time you could try
+        // requesting permissions again (this is also where
+        // Android's shouldShowRequestPermissionRationale
+        // returned true. According to Android guidelines
+        // your App should show an explanatory UI now.
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever, handle appropriately.
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    // When we reach here, permissions are granted and we can
+    // continue accessing the position of the device.
+    return await Geolocator.getCurrentPosition();
   }
 
   @override
@@ -65,7 +102,10 @@ class ContactPage extends StatelessWidget {
                   ),
                   color: globalController.colorBackground.value,
                   child: ListTile(
-                    leading: const Icon(Icons.home_filled,size: 32,),
+                    leading: const Icon(
+                      Icons.home_filled,
+                      size: 32,
+                    ),
                     title: Text(
                       'Công ty',
                       style: TextStyle(
@@ -78,9 +118,7 @@ class ContactPage extends StatelessWidget {
                         color: globalController.colorText.value,
                       ),
                     ),
-                    onTap: () {
-
-                    },
+                    onTap: () {},
                   ),
                 ),
               ),
@@ -93,7 +131,10 @@ class ContactPage extends StatelessWidget {
                   ),
                   color: globalController.colorBackground.value,
                   child: ListTile(
-                    leading: const Icon(Icons.email, size: 32,),
+                    leading: const Icon(
+                      Icons.email,
+                      size: 32,
+                    ),
                     title: Text(
                       'Email',
                       style: TextStyle(
@@ -128,7 +169,10 @@ class ContactPage extends StatelessWidget {
                   ),
                   color: globalController.colorBackground.value,
                   child: ListTile(
-                    leading: const Icon(Icons.call,size: 32,),
+                    leading: const Icon(
+                      Icons.call,
+                      size: 32,
+                    ),
                     title: Text(
                       'Số điện thoại',
                       style: TextStyle(
@@ -142,8 +186,7 @@ class ContactPage extends StatelessWidget {
                       ),
                     ),
                     onTap: () async {
-                      await launchUrlString(
-                          'tel://0912345678');
+                      await launchUrlString('tel://0912345678');
                     },
                   ),
                 ),
@@ -157,7 +200,10 @@ class ContactPage extends StatelessWidget {
                   ),
                   color: globalController.colorBackground.value,
                   child: ListTile(
-                    leading: const Icon(Icons.location_on, size: 32,),
+                    leading: const Icon(
+                      Icons.location_on,
+                      size: 32,
+                    ),
                     title: Text(
                       'Địa chỉ',
                       style: TextStyle(
@@ -172,34 +218,40 @@ class ContactPage extends StatelessWidget {
                     ),
                     isThreeLine: true,
                     onTap: () async {
+                      await _determinePosition();
                       print('open map');
                       Position position = await Geolocator.getCurrentPosition(
                           desiredAccuracy: LocationAccuracy.high);
                       List<Location> locations = [];
                       try {
-                        locations = await locationFromAddress("69 Đinh Tiên Hoàng, Hoàn Kiếm, Hà Nội");
+                        locations = await locationFromAddress(
+                            "69 Đinh Tiên Hoàng, Hoàn Kiếm, Hà Nội");
                         // locations = await locationFromAddress(controller.addressUnit ?? '');
                       } catch (e) {
-                        Get.snackbar('Lỗi', 'Lỗi hệ thống, xin vui lòng thử lại sau!');
+                        Get.snackbar(
+                            'Lỗi', 'Lỗi hệ thống, xin vui lòng thử lại sau!');
                       }
                       final availableMaps = await MapLauncher.installedMaps;
                       print(availableMaps);
-                      if (await MapLauncher.isMapAvailable(MapType.google) == true) {
-                      MapLauncher.showDirections(
-                      mapType: MapType.google,
-                      destination:
-                      Coords(locations[0].latitude, locations[0].longitude),
-                      origin: Coords(position.latitude, position.longitude),
-                      originTitle: 'Vị trí hiện tại'
-                      );
-                      } else if (await MapLauncher.isMapAvailable(MapType.apple) == true) {
-                      MapLauncher.showDirections(
-                      mapType: MapType.apple,
-                      destination:
-                      Coords(locations[0].latitude, locations[0].longitude),
-                      origin: Coords(position.latitude, position.longitude),
-                      originTitle: 'Vị trí hiện tại'
-                      );
+                      if (await MapLauncher.isMapAvailable(MapType.google) ==
+                          true) {
+                        MapLauncher.showDirections(
+                            mapType: MapType.google,
+                            destination: Coords(
+                                locations[0].latitude, locations[0].longitude),
+                            origin:
+                                Coords(position.latitude, position.longitude),
+                            originTitle: 'Vị trí hiện tại');
+                      } else if (await MapLauncher.isMapAvailable(
+                              MapType.apple) ==
+                          true) {
+                        MapLauncher.showDirections(
+                            mapType: MapType.apple,
+                            destination: Coords(
+                                locations[0].latitude, locations[0].longitude),
+                            origin:
+                                Coords(position.latitude, position.longitude),
+                            originTitle: 'Vị trí hiện tại');
                       }
                     },
                   ),

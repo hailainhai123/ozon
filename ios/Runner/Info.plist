@@ -50,11 +50,9 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>LSApplicationQueriesSchemes</key>
-    <array>
-      <string>mailto</string>
-      <string>tel</string>
-    </array>
 	<array>
+	    <string>mailto</string>
+        <string>tel</string>
         <string>https</string>
         <string>comgooglemaps</string>
         <string>baidumap</string>
