@@ -226,7 +226,6 @@ class ContactPage extends StatelessWidget {
                       try {
                         locations = await locationFromAddress(
                             "69 Đinh Tiên Hoàng, Hoàn Kiếm, Hà Nội");
-                        // locations = await locationFromAddress(controller.addressUnit ?? '');
                       } catch (e) {
                         Get.snackbar(
                             'Lỗi', 'Lỗi hệ thống, xin vui lòng thử lại sau!');
